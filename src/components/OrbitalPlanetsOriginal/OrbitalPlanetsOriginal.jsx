@@ -1,8 +1,8 @@
 import React from 'react';
-import './OrbitalPlanets.css';
+import './OrbitalPlanetsOriginal.css';
 
-const OrbitalPlanets = () => {
-  // 17 objetos: 16 planetas + 1 asteroide
+const OrbitalPlanetsOriginal = () => {
+  // 13 planetas en total (8 originales + 5 nuevos), todos blancos
   const planets = [
     { name: 'Planet1', size: 0.4, color: '#ffffff' },
     { name: 'Planet2', size: 0.6, color: '#ffffff' },
@@ -16,17 +16,18 @@ const OrbitalPlanets = () => {
     { name: 'Planet10', size: 0.9, color: '#ffffff' },
     { name: 'Planet11', size: 0.7, color: '#ffffff' },
     { name: 'Planet12', size: 0.5, color: '#ffffff' },
-    { name: 'Planet13', size: 1.1, color: '#ffffff' },
+    { name: 'Planet13', size: 1.1, color: '#ffffff' }
   ];
 
-  console.log('Total objects:', planets.length);
-  console.log('Anillo 1:', planets.slice(0, 4).length);
-  console.log('Anillo 2:', planets.slice(4, 8).length);
-  console.log('Anillo 3:', planets.slice(8, 12).length);
+  console.log('Total planets:', planets.length); // Debugging
+  console.log('Anillo 1:', planets.slice(0, 4).length); // Debugging
+  console.log('Anillo 2:', planets.slice(4, 9).length); // Debugging
+  console.log('Anillo 3:', planets.slice(9, 13).length); // Debugging
+  console.log('OrbitalPlanetsOriginal component rendered'); // Debugging
 
   return (
     <div className="orbital-container">
-      {/* Anillo 1 - Sentido horario - MÁS RÁPIDO */}
+      {/* Anillo 1 - Sentido horario */}
       <div className="orbit orbit-1">
         {planets.slice(0, 4).map((planet, index) => (
           <div
@@ -36,7 +37,7 @@ const OrbitalPlanets = () => {
               '--planet-size': `${planet.size}rem`,
               '--planet-color': planet.color,
               '--orbit-delay': `${index * 1.5}s`,
-              '--orbit-duration': '12s'
+              '--orbit-duration': '3s'
             }}
           >
             <div className="planet-core" style={{ backgroundColor: planet.color }}></div>
@@ -46,7 +47,7 @@ const OrbitalPlanets = () => {
 
       {/* Anillo 2 - Sentido antihorario */}
       <div className="orbit orbit-2">
-        {planets.slice(4, 8).map((planet, index) => (
+        {planets.slice(4, 9).map((planet, index) => (
           <div
             key={planet.name}
             className="planet"
@@ -54,7 +55,7 @@ const OrbitalPlanets = () => {
               '--planet-size': `${planet.size}rem`,
               '--planet-color': planet.color,
               '--orbit-delay': `${index * 1.2}s`,
-              '--orbit-duration': '18s'
+              '--orbit-duration': '4s'
             }}
           >
             <div className="planet-core" style={{ backgroundColor: planet.color }}></div>
@@ -64,7 +65,7 @@ const OrbitalPlanets = () => {
 
       {/* Anillo 3 - Sentido horario */}
       <div className="orbit orbit-3">
-        {planets.slice(8, 12).map((planet, index) => (
+        {planets.slice(9, 13).map((planet, index) => (
           <div
             key={planet.name}
             className="planet"
@@ -72,16 +73,15 @@ const OrbitalPlanets = () => {
               '--planet-size': `${planet.size}rem`,
               '--planet-color': planet.color,
               '--orbit-delay': `${index * 2}s`,
-              '--orbit-duration': '24s'
+              '--orbit-duration': '5s'
             }}
           >
             <div className="planet-core" style={{ backgroundColor: planet.color }}></div>
           </div>
         ))}
       </div>
-    
     </div>
   );
 };
 
-export default OrbitalPlanets;
+export default OrbitalPlanetsOriginal;

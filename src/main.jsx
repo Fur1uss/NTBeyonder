@@ -9,6 +9,9 @@ import WebNavigation from './pages/webNavigation/WebNavigation.jsx'
 import EarthViewerPage from './pages/EarthViewerPage/EarthViewerPage.jsx'
 import MarsViewerPage from './pages/MarsViewerPage/MarsViewerPage.jsx'
 import MoonViewerPage from './pages/MoonViewerPage/MoonViewerPage.jsx'
+import UniverseMapPage from './pages/UniverseMapPage/UniverseMapPage.jsx'
+import AndromedaPage from './pages/AndromedaPage/AndromedaPage.jsx'
+import ViaLacteaPage from './pages/ViaLacteaPage/ViaLacteaPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,6 +23,9 @@ createRoot(document.getElementById('root')).render(
         <Route path='/earth-viewer' element={<EarthViewerPage />} />
         <Route path='/mars-viewer' element={<MarsViewerPage />} />
         <Route path='/moon-viewer' element={<MoonViewerPage />} />
+        <Route path='/universe-map' element={<UniverseMapPage />} />
+        <Route path='/andromeda' element={<AndromedaPage />} />
+        <Route path='/vialactea' element={<ViaLacteaPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

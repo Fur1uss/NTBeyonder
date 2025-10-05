@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
 import { useGLTF, OrbitControls } from '@react-three/drei'
 import './WebNavigation.css'
@@ -81,7 +82,7 @@ function Earth({ modelPath = '/models/Earth_1_12756.glb', planetName = 'Tierra' 
             'Tierra': { 
                 color: '#4A90E2', 
                 roughness: 0.4, 
-                metalness: 0.0,
+                metalness: -4.0,
                 emissive: { r: 0.05, g: 0.05, b: 0.05 }
             },
             'Marte': { 
@@ -162,6 +163,7 @@ function Earth({ modelPath = '/models/Earth_1_12756.glb', planetName = 'Tierra' 
 
 const WebNavigation = () => {
     const [currentPlanet, setCurrentPlanet] = useState(0);
+    const navigate = useNavigate();
 
     // Preload todos los modelos al cargar el componente
     useEffect(() => {
@@ -282,26 +284,25 @@ const WebNavigation = () => {
                             <strong>Período orbital:</strong> {planet.details.period}<br/>
                             <strong>Satélites:</strong> {planet.details.satellites}
                         </div>
-                            <button 
-                                className="explore-button"
-                                onClick={() => {
-                                    if (planet.name === 'Tierra') {
-                                        // Navegar al visor de la Tierra
-                                        window.location.href = '/earth-viewer';
-                                    } else if (planet.name === 'Marte') {
-                                        // Navegar al visor de Marte
-                                        window.location.href = '/mars-viewer';
-                                    } else if (planet.name === 'Luna') {
-                                        // Navegar al visor de la Luna
-                                        window.location.href = '/moon-viewer';
-                                    } else {
-                                        console.log(`Explorando detalles de ${planet.name}`);
-                                        // TODO: Implementar visores para otros planetas
-                                    }
-                                }}
-                            >
-                                EXPLORAR DETALLES
-                            </button>
+                        <button 
+                            className="explore-button"
+                            onClick={() => {
+                                if (planet.name === 'Tierra') {
+                                    // Navegar al visor de la Tierra
+                                    navigate('/earth-viewer');
+                                } else if (planet.name === 'Marte') {
+                                    // Navegar al visor de Marte
+                                    navigate('/mars-viewer');
+                                } else if (planet.name === 'Luna') {
+                                    // Navegar al visor de la Luna
+                                    navigate('/moon-viewer');
+                                } else {
+                                    // TODO: Implementar visores para otros planetas
+                                }
+                            }}
+                        >
+                            EXPLORAR DETALLES
+                        </button>
                     </div>
                 </div>
             ))}

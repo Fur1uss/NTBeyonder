@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ProductContext.css'
-import OrbitalPlanets from '../../components/OrbitalPlanets/OrbitalPlanets'
+import OrbitalPlanetsOriginal from '../../components/OrbitalPlanetsOriginal/OrbitalPlanetsOriginal'
 import BackgroundStars from '../../components/BackgroundStars/BackgroundStars'
 import BlurText from '../../components/BlurText/BlurText'
 
@@ -9,14 +9,13 @@ const ProductContext = () => {
     const navigate = useNavigate();
 
     const handleStart = () => {
-        navigate('/web-navigation');
-
+        navigate('/universe-map');
     };
 
     return (
         <div className="product-context">
             <BackgroundStars />
-            <OrbitalPlanets />
+            <OrbitalPlanetsOriginal />
             <div className="product-context-content">
                 <h2>
                     <BlurText 

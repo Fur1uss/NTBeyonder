@@ -1,0 +1,259 @@
+.sistemasolar-page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sistemaSolar-background {
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.back-button {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.sistemaSolar-content {
+  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Contenedor para el componente orbital en el centro */
+.orbital-container-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+/* Sol en el centro de las órbitas */
+.sol-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.sol-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.8),
+    0 0 60px rgba(255, 165, 0, 0.6),
+    0 0 90px rgba(255, 140, 0, 0.4);
+  animation: solar-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes solar-glow {
+  from {
+    box-shadow: 
+      0 0 30px rgba(255, 215, 0, 0.8),
+      0 0 60px rgba(255, 165, 0, 0.6),
+      0 0 90px rgba(255, 140, 0, 0.4);
+  }
+  to {
+    box-shadow: 
+      0 0 40px rgba(255, 215, 0, 1),
+      0 0 80px rgba(255, 165, 0, 0.8),
+      0 0 120px rgba(255, 140, 0, 0.6);
+  }
+}
+
+/* Contenedor para imagen y descripción lado a lado */
+.sistemaSolar-main-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.sistemaSolar-image {
+  width: 550px;
+  height: 550px;
+  object-fit: cover;
+  border-radius: 20px;
+  flex-shrink: 0;
+  order: 1; /* Asegurar que la imagen esté primero (izquierda) */
+}
+
+.sistemaSolar-description {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 40px 30px 70px 30px;
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  flex: 1;
+  order: 2; /* Asegurar que el texto esté segundo (derecha) */
+  position: relative;
+}
+
+.sistemaSolar-description p {
+  font-size: 20px;
+  line-height: 1.8;
+  margin: 0;
+  color: #e0e0e0;
+  font-family: var(--font-family);
+}
+
+.sistemaSolar-description h3 {
+  font-size: 25px;
+  line-height: 1.8;
+  margin: 0 0 15px 0;
+  color: #e0e0e0;
+  font-weight: bold;
+  font-family: var(--font-family);
+}
+
+.sistemaSolar-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.stat-distance {
+  border-color: rgba(255, 165, 0, 0.5);
+  background: rgba(255, 165, 0, 0.1);
+}
+
+.stat-distance:hover {
+  border-color: #ffa500;
+  box-shadow: 0 10px 25px rgba(255, 165, 0, 0.3);
+}
+
+.stat-stars {
+  border-color: rgba(255, 215, 0, 0.5);
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.stat-stars:hover {
+  border-color: #ffd700;
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+}
+
+.stat-diameter {
+  border-color: rgba(255, 69, 0, 0.5);
+  background: rgba(255, 69, 0, 0.1);
+}
+
+.stat-diameter:hover {
+  border-color: #ff4500;
+  box-shadow: 0 10px 25px rgba(255, 69, 0, 0.3);
+}
+
+.stat-card h3 {
+  margin: 0 0 15px 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.stat-distance h3 { color: #ffa500; }
+.stat-stars h3 { color: #ffd700; }
+.stat-diameter h3 { color: #ff4500; }
+
+.stat-card p {
+  margin: 0;
+  font-size: 18px;
+  color: #f0f0f0;
+}
+
+.sistemaSolar-classification {
+  font-size: 16px;
+  color: #a0a0a0;
+  font-style: italic;
+  margin-top: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sistemaSolar-content {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .orbital-container-wrapper {
+    height: 70vh;
+    min-height: 400px;
+  }
+  
+  .sistemaSolar-main-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .sistemaSolar-image {
+    width: 300px;
+    height: 300px;
+    order: unset; /* En móvil mantener orden normal */
+  }
+
+  .sistemaSolar-description p {
+    font-size: 18px;
+  }
+  
+  .stat-card {
+    padding: 20px;
+  }
+  
+  .stat-card h3 {
+    font-size: 20px;
+  }
+  
+  .stat-card p {
+    font-size: 16px;
+  }
+}

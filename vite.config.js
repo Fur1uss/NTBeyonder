@@ -53,6 +53,20 @@ export default defineConfig({
             proxyReq.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization');
           });
         }
+      },
+      // Proxy para imágenes de NASA (APOD, Mars Photos, Earth Imagery)
+      '/nasa-images': {
+        target: 'https://api.nasa.gov',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/nasa-images/, ''),
+        configure: (proxy, options) => {
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            // Agregar headers CORS
+            proxyReq.setHeader('Access-Control-Allow-Origin', '*');
+            proxyReq.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+            proxyReq.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization');
+          });
+        }
       }
     }
   }

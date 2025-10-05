@@ -1,0 +1,221 @@
+.vialactea-page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.viaLactea-background {
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.back-button {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+}
+
+.explorar-button {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.explorar-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.viaLactea-content {
+  text-align: center;
+  position: relative;
+  max-width: 1200px;
+  width: 90%;
+  padding: 40px;
+}
+
+/* Contenedor para imagen y descripción lado a lado */
+.viaLactea-main-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.viaLactea-image {
+  width: 550px;
+  height: 550px;
+  object-fit: cover;
+  border-radius: 20px;
+  flex-shrink: 0;
+  order: 1; /* Asegurar que la imagen esté primero (izquierda) */
+}
+
+.viaLactea-description {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 40px 30px 70px 30px;
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  flex: 1;
+  order: 2; /* Asegurar que el texto esté segundo (derecha) */
+  position: relative;
+}
+
+.viaLactea-description p {
+  font-size: 20px;
+  line-height: 1.8;
+  margin: 0;
+  color: #e0e0e0;
+  font-family: var(--font-family);
+}
+.viaLactea-description h3 {
+  font-size: 25px;
+  line-height: 1.8;
+  margin: 0 0 15px 0;
+  color: #e0e0e0;
+  font-weight: bold;
+  font-family: var(--font-family);
+}
+
+.viaLactea-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.stat-distance {
+  border-color: rgba(74, 144, 226, 0.5);
+  background: rgba(74, 144, 226, 0.1);
+}
+
+.stat-distance:hover {
+  border-color: #4a90e2;
+  box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3);
+}
+
+.stat-stars {
+  border-color: rgba(80, 201, 195, 0.5);
+  background: rgba(80, 201, 195, 0.1);
+}
+
+.stat-stars:hover {
+  border-color: #50c9c3;
+  box-shadow: 0 10px 25px rgba(80, 201, 195, 0.3);
+}
+
+.stat-diameter {
+  border-color: rgba(156, 136, 255, 0.5);
+  background: rgba(156, 136, 255, 0.1);
+}
+
+.stat-diameter:hover {
+  border-color: #9c88ff;
+  box-shadow: 0 10px 25px rgba(156, 136, 255, 0.3);
+}
+
+.stat-card h3 {
+  margin: 0 0 15px 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.stat-distance h3 { color: #4a90e2; }
+.stat-stars h3 { color: #50c9c3; }
+.stat-diameter h3 { color: #9c88ff; }
+
+.stat-card p {
+  margin: 0;
+  font-size: 18px;
+  color: #f0f0f0;
+}
+
+.viaLactea-classification {
+  font-size: 16px;
+  color: #a0a0a0;
+  font-style: italic;
+  margin-top: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .viaLactea-main-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .viaLactea-image {
+    width: 300px;
+    height: 300px;
+    order: unset; /* En móvil mantener orden normal */
+  }
+
+  .viaLactea-description p {
+    font-size: 18px;
+  }
+  
+  .stat-card {
+    padding: 20px;
+  }
+  
+  .stat-card h3 {
+    font-size: 20px;
+  }
+  
+  .stat-card p {
+    font-size: 16px;
+  }
+}

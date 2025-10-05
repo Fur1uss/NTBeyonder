@@ -17,12 +17,18 @@ const OrbitalPlanets = () => {
     { name: 'Planet11', size: 0.7, color: '#ffffff' },
     { name: 'Planet12', size: 0.5, color: '#ffffff' },
     { name: 'Planet13', size: 1.1, color: '#ffffff' },
+    { name: 'Planet14', size: 0.8, color: '#ffffff' },
+    { name: 'Planet15', size: 0.6, color: '#ffffff' },
+    { name: 'Planet16', size: 0.9, color: '#ffffff' },
+    { name: 'Asteroid1', size: 0.3, color: '#a00e0eff' } // Asteroide color marrón/gris
   ];
 
   console.log('Total objects:', planets.length);
   console.log('Anillo 1:', planets.slice(0, 4).length);
   console.log('Anillo 2:', planets.slice(4, 8).length);
   console.log('Anillo 3:', planets.slice(8, 12).length);
+  console.log('Anillo 4:', planets.slice(12, 16).length);
+  console.log('Órbita asteroide:', planets.slice(16, 17).length);
 
   return (
     <div className="orbital-container">
@@ -79,7 +85,42 @@ const OrbitalPlanets = () => {
           </div>
         ))}
       </div>
-    
+
+      {/* Anillo 4 - Sentido horario */}
+      <div className="orbit orbit-4">
+        {planets.slice(12, 16).map((planet, index) => (
+          <div
+            key={planet.name}
+            className="planet"
+            style={{
+              '--planet-size': `${planet.size}rem`,
+              '--planet-color': planet.color,
+              '--orbit-delay': `${index * 3}s`,
+              '--orbit-duration': '30s'
+            }}
+          >
+            <div className="planet-core" style={{ backgroundColor: planet.color }}></div>
+          </div>
+        ))}
+      </div>
+
+      {/* Órbita elíptica para asteroide */}
+      <div className="orbit orbit-asteroid">
+        {planets.slice(16, 17).map((asteroid, index) => (
+          <div
+            key={asteroid.name}
+            className="asteroid"
+            style={{
+              '--planet-size': `${asteroid.size}rem`,
+              '--planet-color': asteroid.color,
+              '--orbit-delay': '0s',
+              '--orbit-duration': '35s'
+            }}
+          >
+            <div className="planet-core" style={{ backgroundColor: asteroid.color }}></div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
