@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fechas de las Capas de la Tierra - NASA Solar System Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .info-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(0, 0, 50, 0.9);
+            border-radius: 15px;
+            color: white;
+        }
+        .layer-info {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #00ff88;
+        }
+        .layer-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+        .date-range {
+            background: rgba(0, 255, 136, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .dataset-details {
+            margin: 15px 0;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        .temporal-info {
+            color: #88ddff;
+            font-weight: bold;
+        }
+        .mission-dates {
+            color: #ffaa88;
+            font-style: italic;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .back-link:hover {
+            background: #0088ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="info-container">
+        <h1>📅 Fechas de las Capas de la Tierra</h1>
+        <p>Información detallada sobre los períodos temporales de las capas que agregamos desde Mercurio:</p>
+        
+        <a href="index.html" class="back-link">← Volver al Explorador</a>
+
+        <div class="layer-info">
+            <div class="layer-title">🗺️ Mapa Geológico Global (Blue Marble)</div>
+            <div class="date-range">
+                <div class="temporal-info">Datos Base:</div>
+                • <strong>2000-2004:</strong> Compilación principal del Blue Marble<br>
+                • <strong>Datos batimétricos:</strong> 1990-2010 (GEBCO y SRTM)<br>
+                • <strong>Relieve sombreado:</strong> 2000 (SRTM30)
+            </div>
+            <div class="dataset-details">
+                <strong>Misión:</strong> NASA Blue Marble Project<br>
+                <strong>Satélites:</strong> Terra/MODIS, SRTM Space Shuttle<br>
+                <strong>Actualización:</strong> Datos estáticos (no cambian con el tiempo)<br>
+                <span class="mission-dates">Nota: Esta capa muestra la topografía terrestre fundamental</span>
+            </div>
+        </div>
+
+        <div class="layer-info">
+            <div class="layer-title">🕳️ Base de Datos de Cráteres (ASTER GDEM)</div>
+            <div class="date-range">
+                <div class="temporal-info">Período de Recolección:</div>
+                • <strong>2000-2013:</strong> Misión ASTER completa<br>
+                • <strong>GDEM v2:</strong> 2011 (versión mejorada)<br>
+                • <strong>GDEM v3:</strong> 2019 (versión actual)
+            </div>
+            <div class="dataset-details">
+                <strong>Misión:</strong> Advanced Spaceborne Thermal Emission and Reflection Radiometer<br>
+                <strong>Satélite:</strong> Terra (NASA/METI)<br>
+                <strong>Resolución:</strong> 30 metros por píxel<br>
+                <span class="mission-dates">Datos de elevación global más precisos disponibles</span>
+            </div>
+        </div>
+
+        <div class="layer-info">
+            <div class="layer-title">🌡️ Emisión Térmica (MODIS Temperatura Superficial)</div>
+            <div class="date-range">
+                <div class="temporal-info">Datos Actuales:</div>
+                • <strong>2000-presente:</strong> Misión MODIS continua<br>
+                • <strong>Actualización:</strong> Diaria<br>
+                • <strong>Disponible desde:</strong> 24 de febrero de 2000
+            </div>
+            <div class="dataset-details">
+                <strong>Misión:</strong> Moderate Resolution Imaging Spectroradiometer<br>
+                <strong>Satélites:</strong> Terra (2000) y Aqua (2002)<br>
+                <strong>Filtro temporal:</strong> Compatible con el selector de fechas<br>
+                <span class="mission-dates">¡Esta capa SÍ cambia con las fechas que selecciones!</span>
+            </div>
+        </div>
+
+        <div class="layer-info">
+            <div class="layer-title">⛰️ Mapa de Pendientes (ASTER GDEM Coloreado)</div>
+            <div class="date-range">
+                <div class="temporal-info">Datos Base:</div>
+                • <strong>2000-2013:</strong> Recolección ASTER<br>
+                • <strong>Procesamiento:</strong> 2019 (GDEM v3)<br>
+                • <strong>Coloreado:</strong> Algoritmo de pendientes aplicado
+            </div>
+            <div class="dataset-details">
+                <strong>Fuente:</strong> Mismo dataset que "Base de Datos de Cráteres"<br>
+                <strong>Diferencia:</strong> Procesamiento con colores para mostrar inclinaciones<br>
+                <strong>Utilidad:</strong> Identificar montañas, valles y características topográficas<br>
+                <span class="mission-dates">Datos estáticos derivados de ASTER GDEM</span>
+            </div>
+        </div>
+
+        <div class="layer-info">
+            <div class="layer-title">📊 Resumen de Compatibilidad con Filtro de Fechas</div>
+            <div class="dataset-details">
+                <strong>✅ Compatible con fechas (cambia según fecha seleccionada):</strong><br>
+                • Emisión Térmica (MODIS) - 2000 a presente<br><br>
+                
+                <strong>❌ Datos estáticos (no cambian con fecha):</strong><br>
+                • Mapa Geológico Global<br>
+                • Base de Datos de Cráteres<br>
+                • Mapa de Pendientes<br><br>
+
+                <span class="temporal-info">Importante:</span> Solo la capa térmica responde al filtro de fechas porque usa datos dinámicos de temperatura. Las otras son mapas base que representan características físicas permanentes de la Tierra.
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">← Volver al Explorador</a>
+    </div>
+</body>
+</html>

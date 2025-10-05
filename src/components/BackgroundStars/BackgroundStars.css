@@ -1,0 +1,87 @@
+.background-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: twinkle linear infinite;
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Animación de parpadeo sutil */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* Variaciones de brillo para diferentes estrellas */
+.star:nth-child(3n) {
+  background-color: rgba(255, 255, 255, 0.4);
+  animation-duration: 3s;
+}
+
+.star:nth-child(5n) {
+  background-color: rgba(255, 255, 255, 0.7);
+  animation-duration: 4s;
+}
+
+.star:nth-child(7n) {
+  background-color: rgba(255, 255, 255, 0.5);
+  animation-duration: 2.5s;
+}
+
+/* Estrellas más grandes y brillantes ocasionalmente */
+.star:nth-child(11n) {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+  animation-duration: 5s;
+}
+
+/* Efecto de estrella fugaz ocasional */
+.star:nth-child(23n) {
+  animation: shooting-star 8s linear infinite;
+}
+
+@keyframes shooting-star {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) translateY(-100px);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100px) translateY(100px);
+  }
+}
+
+/* Responsive - menos estrellas en móviles para mejor performance */
+@media (max-width: 768px) {
+  .background-stars {
+    /* Reducir la cantidad de estrellas en móviles */
+  }
+  
+  .star {
+    /* Estrellas más pequeñas en móviles */
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+}

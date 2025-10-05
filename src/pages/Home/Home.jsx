@@ -1,9 +1,18 @@
 import React from 'react'
 import './Home.css'
 import Particles from "../../components/Particles/Particles";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () =>{
+    const navigate = useNavigate();
+
+    const handleContinue = () => {
+        navigate('/product-context');
+    }
+
     return (
+
+
         <div className='home-site'>
         <Particles
             particleColors={['ffffff', '#ffffff']}
@@ -18,7 +27,7 @@ const Home = () =>{
         <div className='home-site-content'>
             <h1><b>START YOUR</b> JOURNEY</h1>
             <div className='home-site-content-buttons'>
-                <a href="">CONTINUE</a>
+                <a href="" onClick={handleContinue}>CONTINUE</a>
                 <p>NTBeyonder made by NTB Team</p>
             </div>
         </div>

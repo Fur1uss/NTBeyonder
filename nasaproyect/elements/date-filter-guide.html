@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro de Fecha - Explorador de la Tierra</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+        .demo-section {
+            background: #2a2a2a;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            border-left: 5px solid #00d4ff;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #333;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: #00d4ff;
+            transform: translateY(-2px);
+        }
+        .feature-title {
+            color: #00d4ff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .date-examples {
+            background: #1e3a5f;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .date-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .date-item {
+            background: #2a4a6b;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid #00d4ff;
+        }
+        .date-item h4 {
+            color: #00d4ff;
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .date-item p {
+            margin: 0;
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        .back-link {
+            display: inline-block;
+            background: #00d4ff;
+            color: #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: #0099cc;
+            transform: translateY(-2px);
+        }
+        .tip-box {
+            background: #1e3a5f;
+            border: 1px solid #00d4ff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .tip-title {
+            color: #00d4ff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .steps {
+            counter-reset: step-counter;
+        }
+        .step {
+            counter-increment: step-counter;
+            background: #333;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #00d4ff;
+            position: relative;
+        }
+        .step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #00d4ff;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .step h4 {
+            color: #00d4ff;
+            margin: 0 0 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📅 Filtro de Fecha para la Tierra</h1>
+        <p>Explora cómo se veía nuestro planeta en cualquier día desde el año 2000</p>
+        <a href="index.html" class="back-link">← Volver al Explorador</a>
+    </div>
+
+    <div class="demo-section">
+        <h2>🌍 Datos Históricos de GIBS</h2>
+        <p>El sistema GIBS de NASA contiene más de 20 años de imágenes satelitales de la Tierra. Ahora puedes viajar en el tiempo y ver cómo se veía nuestro planeta en cualquier fecha específica.</p>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Rango de Fechas
+                </div>
+                <p><strong>Desde:</strong> 24 de febrero de 2000 (inicio de MODIS Aqua)</p>
+                <p><strong>Hasta:</strong> Ayer (datos más recientes disponibles)</p>
+                <p><strong>Cobertura:</strong> Más de 8,000 días de datos</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">
+                    <i class="fas fa-satellite"></i>
+                    Tipos de Datos
+                </div>
+                <p><strong>Color Verdadero:</strong> Imágenes naturales</p>
+                <p><strong>Infrarrojo:</strong> Vegetación y agua</p>
+                <p><strong>Día/Noche:</strong> Luces artificiales</p>
+                <p><strong>Landsat:</strong> Compuestos anuales</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">
+                    <i class="fas fa-clock"></i>
+                    Actualización
+                </div>
+                <p><strong>Frecuencia:</strong> Diaria</p>
+                <p><strong>Latencia:</strong> 1-2 días</p>
+                <p><strong>Resolución:</strong> 250m por pixel</p>
+                <p><strong>Cobertura:</strong> Global</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>🎯 Cómo Usar el Filtro de Fecha</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <h4>Seleccionar la Tierra</h4>
+                <p>Haz clic en "Tierra" en el panel lateral izquierdo. Esto activará automáticamente las capas GIBS y mostrará el control de fecha.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Elegir una Fecha</h4>
+                <p>En el panel de controles (esquina superior derecha), aparecerá un selector de fecha. Haz clic para abrir el calendario y selecciona cualquier fecha desde febrero de 2000.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Aplicar la Fecha</h4>
+                <p>Después de seleccionar la fecha, haz clic en el botón de verificación (✓) para cargar los datos de esa fecha específica.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Explorar con Zoom</h4>
+                <p>Una vez cargados los datos, usa el zoom para explorar diferentes regiones de la Tierra en esa fecha histórica.</p>
+            </div>
+            
+            <div class="step">
+                <h4>Cambiar Capas</h4>
+                <p>Experimenta con diferentes tipos de capas (Color Verdadero, Infrarrojo, etc.) para la misma fecha y observa las diferencias.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>📚 Fechas Históricas Interesantes</h2>
+        <p>Prueba estas fechas para observar eventos significativos en la Tierra:</p>
+        
+        <div class="date-examples">
+            <h3 style="color: #00d4ff; margin-top: 0;">🌋 Eventos Naturales</h3>
+            <div class="date-list">
+                <div class="date-item">
+                    <h4>11 de septiembre de 2001</h4>
+                    <p>Observa el humo sobre Nueva York tras los ataques del 11-S</p>
+                </div>
+                <div class="date-item">
+                    <h4>26 de diciembre de 2004</h4>
+                    <p>Tsunami del Océano Índico - cambios costeros visibles</p>
+                </div>
+                <div class="date-item">
+                    <h4>15 de abril de 2010</h4>
+                    <p>Erupción del volcán Eyjafjallajökull en Islandia</p>
+                </div>
+                <div class="date-item">
+                    <h4>11 de marzo de 2011</h4>
+                    <p>Tsunami de Japón - devastación costera</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="date-examples">
+            <h3 style="color: #00d4ff; margin-top: 2rem;">🔥 Incendios Forestales</h3>
+            <div class="date-list">
+                <div class="date-item">
+                    <h4>Septiembre de 2020</h4>
+                    <p>Incendios masivos en California y Oregon</p>
+                </div>
+                <div class="date-item">
+                    <h4>Enero de 2020</h4>
+                    <p>Incendios forestales en Australia</p>
+                </div>
+                <div class="date-item">
+                    <h4>Agosto de 2019</h4>
+                    <p>Incendios en la Amazonía brasileña</p>
+                </div>
+                <div class="date-item">
+                    <h4>Julio de 2018</h4>
+                    <p>Incendios en Grecia y California</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="date-examples">
+            <h3 style="color: #00d4ff; margin-top: 2rem;">🌨️ Eventos Climáticos</h3>
+            <div class="date-list">
+                <div class="date-item">
+                    <h4>Febrero de 2021</h4>
+                    <p>Tormenta invernal histórica en Texas</p>
+                </div>
+                <div class="date-item">
+                    <h4>Agosto de 2005</h4>
+                    <p>Huracán Katrina en el Golfo de México</p>
+                </div>
+                <div class="date-item">
+                    <h4>Octubre de 2012</h4>
+                    <p>Huracán Sandy en la costa este de EE.UU.</p>
+                </div>
+                <div class="date-item">
+                    <h4>Marzo de 2020</h4>
+                    <p>Reducción de contaminación durante el COVID-19</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <div class="tip-title">💡 Consejos de Uso</div>
+        <ul>
+            <li><strong>Fechas recientes:</strong> Para ver eventos actuales, usa fechas de hace 1-2 días</li>
+            <li><strong>Comparación temporal:</strong> Alterna entre diferentes fechas para ver cambios estacionales</li>
+            <li><strong>Capas especializadas:</strong> Usa infrarrojo para incendios, color verdadero para huracanes</li>
+            <li><strong>Zoom progresivo:</strong> Comienza con vista global y acércate gradualmente</li>
+            <li><strong>Disponibilidad:</strong> Algunas fechas pueden tener cobertura parcial debido a nubes</li>
+        </ul>
+    </div>
+
+    <div class="tip-box">
+        <div class="tip-title">🔬 Información Técnica</div>
+        <p><strong>Fuente de Datos:</strong> NASA GIBS (Global Imagery Browse Services)</p>
+        <p><strong>Satélites:</strong> MODIS Aqua/Terra, VIIRS, Landsat</p>
+        <p><strong>Formato:</strong> WMTS (Web Map Tile Service)</p>
+        <p><strong>Proyección:</strong> EPSG:4326 (Geographic)</p>
+        <p><strong>Actualización:</strong> Los datos se procesan y están disponibles 1-2 días después de la captura</p>
+    </div>
+
+    <div class="demo-section">
+        <h2>🎮 Casos de Uso Educativos</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Ciencias de la Tierra
+                </div>
+                <p>Estudia patrones climáticos estacionales, efectos del cambio climático, y fenómenos meteorológicos extremos a lo largo del tiempo.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">
+                    <i class="fas fa-tree"></i>
+                    Monitoreo Ambiental
+                </div>
+                <p>Observa deforestación, crecimiento urbano, sequías, inundaciones y otros cambios ambientales.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">
+                    <i class="fas fa-history"></i>
+                    Análisis Histórico
+                </div>
+                <p>Documenta eventos históricos importantes y sus efectos visibles desde el espacio.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="index.html" class="back-link">🌍 Explorar la Tierra con Filtro de Fecha</a>
+    </div>
+</body>
+</html>

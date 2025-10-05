@@ -1,0 +1,149 @@
+.planet-3d {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: planetEntrance 1s ease-out var(--animation-delay, 0s) both;
+}
+
+.planet-3d__sphere {
+    position: relative;
+    border-radius: 50%;
+    animation: planetRotation 20s linear infinite;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+}
+
+.planet-3d__atmosphere {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.planet-3d__glow {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.planet-3d__name {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Hover Effects */
+.planet-3d:hover {
+    transform: translateY(-10px) scale(1.1);
+}
+
+.planet-3d:hover .planet-3d__sphere {
+    transform: scale(1.1);
+    animation-duration: 10s; /* Rotación más rápida en hover */
+}
+
+.planet-3d:hover .planet-3d__atmosphere {
+    opacity: 1;
+}
+
+.planet-3d:hover .planet-3d__glow {
+    opacity: 1;
+}
+
+.planet-3d:hover .planet-3d__name {
+    opacity: 1;
+    transform: translateY(-5px);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* Active state */
+.planet-3d:active {
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* Animations */
+@keyframes planetRotation {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes planetEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Specific planet animations */
+.planet-3d:nth-child(1) .planet-3d__sphere {
+    animation-duration: 25s;
+}
+
+.planet-3d:nth-child(2) .planet-3d__sphere {
+    animation-duration: 30s;
+}
+
+.planet-3d:nth-child(3) .planet-3d__sphere {
+    animation-duration: 20s;
+}
+
+.planet-3d:nth-child(4) .planet-3d__sphere {
+    animation-duration: 35s;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .planet-3d {
+        gap: 15px;
+    }
+    
+    .planet-3d__name {
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+    
+    .planet-3d:hover {
+        transform: translateY(-5px) scale(1.05);
+    }
+}
+
+@media (max-width: 480px) {
+    .planet-3d {
+        gap: 10px;
+    }
+    
+    .planet-3d__name {
+        font-size: 0.9rem;
+    }
+}
