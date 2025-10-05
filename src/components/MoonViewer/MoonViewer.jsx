@@ -103,8 +103,8 @@ const MoonViewer = ({ onClose }) => {
         setError(null);
 
         // Crear nueva capa planetaria (Luna) - Solo Mosaico Global
-        // Usar proxy local para evitar CORS
-        const tileUrl = '/opm-moon/api/v1/map/named/opm-moon-basemap-v0-1/all/{z}/{x}/{y}.png';
+        // Usar URL directa de OpenPlanetaryMap que funciona mejor en producción
+        const tileUrl = 'https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/api/v1/map/named/opm-moon-basemap-v0-1/all/{z}/{x}/{y}.png';
         
         const newLayer = L.tileLayer(tileUrl, {
             attribution: `${layerConfig.attribution} - ${date}`,

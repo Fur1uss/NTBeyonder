@@ -135,12 +135,10 @@ export const buildPlanetaryTileUrl = (planet, layerType, z, x, y) => {
     
     const layerConfig = planetLayers[layerType];
     
-    // Para planetas con OpenPlanetaryMap (Marte) - estructura simple que funciona
+    // Para planetas con OpenPlanetaryMap (Marte) - usar URL directa que funciona
     if (layerConfig.useOpenPlanetaryMap) {
-        // Usar proxy local para evitar CORS
-        const url = `/opm-mars/opmbuilder/api/v1/map/named/opm-mars-basemap-v0-2/all/${z}/${x}/${y}.${layerConfig.format}`;
-        
-        // Debug removido - funcionando correctamente
+        // Usar URL directa de OpenPlanetaryMap que funciona mejor en producción
+        const url = `https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/api/v1/map/named/opm-mars-basemap-v0-2/all/${z}/${x}/${y}.${layerConfig.format}`;
         
         return url;
     }
@@ -168,10 +166,10 @@ export const buildPlanetaryTileUrl = (planet, layerType, z, x, y) => {
         return url;
     }
     
-        // Para la Luna con OpenPlanetaryMap - usar estructura simple que funciona
+        // Para la Luna con OpenPlanetaryMap - usar URL directa que funciona
         if (layerConfig.useOpenPlanetaryMap && planet.toLowerCase() === 'moon') {
-            // Usar proxy local para evitar CORS - URL directa como en nasaproyect
-            const url = `/opm-moon/opmbuilder/api/v1/map/named/opm-moon-basemap-v0-1/all/${z}/${x}/${y}.${layerConfig.format}`;
+            // Usar URL directa de OpenPlanetaryMap que funciona mejor en producción
+            const url = `https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/api/v1/map/named/opm-moon-basemap-v0-1/all/${z}/${x}/${y}.${layerConfig.format}`;
             
             return url;
         }
