@@ -106,48 +106,8 @@ function Earth({ modelPath = '/models/Earth_1_12756.glb', planetName = 'Tierra' 
         emissive: { r: 0.05, g: 0.05, b: 0.05 }
     };
     
-    // Intentar cargar el modelo 3D con Suspense
-    if (modelPath) {
-        console.log(`Cargando modelo para ${planetName}: ${modelPath}`);
-        return (
-            <Suspense fallback={
-                <mesh position={[0, 0, 0]}>
-                    <sphereGeometry args={[1, 32, 32]} />
-                    <meshStandardMaterial color="#333333" />
-                </mesh>
-            }>
-                <ErrorBoundary fallback={
-                    <mesh position={[0, 0, 0]}>
-                        <sphereGeometry args={[1, 64, 64]} />
-                        <meshStandardMaterial 
-                            color={planetInfo.color}
-                            roughness={planetInfo.roughness}
-                            metalness={planetInfo.metalness}
-                            emissive={planetInfo.emissive}
-                        />
-                    </mesh>
-                }>
-                    <ModelLoader modelPath={modelPath} planetName={planetName} planetInfo={planetInfo} />
-                </ErrorBoundary>
-            </Suspense>
-        );
-    }
-    
-        // Para planetas sin modelo o con error, usar esfera mejorada
-        if (planetName === 'Luna') {
-            return (
-                <mesh position={[0, 0, 0]}>
-                    <sphereGeometry args={[1, 64, 64]} />
-                    <meshStandardMaterial 
-                        color={planetInfo.color}
-                        roughness={planetInfo.roughness}
-                        metalness={planetInfo.metalness}
-                        emissive={planetInfo.emissive}
-                    />
-                </mesh>
-            )
-        }
-    
+    // Usar esferas como fallback debido a problemas con archivos GLB grandes en Vercel
+    console.log(`Usando esfera para ${planetName} (fallback por tamaño de archivo GLB)`);
     return (
         <mesh position={[0, 0, 0]}>
             <sphereGeometry args={[1, 64, 64]} />
@@ -158,30 +118,14 @@ function Earth({ modelPath = '/models/Earth_1_12756.glb', planetName = 'Tierra' 
                 emissive={planetInfo.emissive}
             />
         </mesh>
-    )
+    );
 }
 
 const WebNavigation = () => {
     const [currentPlanet, setCurrentPlanet] = useState(0);
     const navigate = useNavigate();
 
-    // Preload todos los modelos al cargar el componente
-    useEffect(() => {
-        const modelPaths = [
-            '/models/Earth_1_12756.glb',
-            '/models/Mars.glb',
-            '/models/Moon.glb'
-        ];
-        
-        modelPaths.forEach(path => {
-            try {
-                useGLTF.preload(path);
-                console.log(`Preloaded: ${path}`);
-            } catch (error) {
-                console.warn(`Failed to preload ${path}:`, error);
-            }
-        });
-    }, []);
+    // Los modelos GLB son demasiado grandes para Vercel, usando esferas como fallback
 
     useEffect(() => {
         const handleScroll = () => {

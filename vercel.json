@@ -18,6 +18,14 @@
       }
     },
     {
+      "src": "/models/(.*\\.(glb|gltf|obj|fbx|3ds|dae|pcd|ply|stl))",
+      "dest": "/models/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "Content-Type": "application/octet-stream"
+      }
+    },
+    {
       "src": "/(.*\\.(png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
       "dest": "/$1",
       "headers": {
