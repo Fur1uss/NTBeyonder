@@ -16,6 +16,10 @@
     {
       "source": "/opm-mars/(.*)",
       "destination": "https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/$1"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
