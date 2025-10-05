@@ -2,9 +2,11 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ViaLacteaPage.css'
 import BackgroundStarSlide from '../BackgroundStarSlide/BackgroundStarSlide'
+import { useLanguage } from '../../hooks/useLanguage'
 
 const ViaLacteaPage = () => {
   const navigate = useNavigate()
+  const { t } = useLanguage()
 
   const handleBack = () => {
     console.log('Botón clickeado - navegando a /universe-map') // Debug
@@ -35,7 +37,7 @@ const ViaLacteaPage = () => {
           onClick={handleBack} 
           className="back-button"
         >
-          ← Volver al Universo
+          {t('backToUniverse')}
         </button>
 
         <div className="viaLactea-content">
@@ -47,17 +49,15 @@ const ViaLacteaPage = () => {
             />
             
             <div className="viaLactea-description">
-              <h3>Vía Láctea</h3>
+              <h3>{t('viaLacteaTitle')}</h3>
               <p>
-                Nuestra galaxia hogar, una galaxia espiral barrada que contiene entre 200 y 400 mil millones de estrellas. 
-                El Sistema Solar se encuentra en uno de los brazos espirales, conocido como el Brazo de Orión. 
-                En su centro se encuentra un agujero negro supermasivo llamado Sagitario A*.
+                {t('viaLacteaDesc')}
               </p>
               <button 
                 onClick={handleExplore} 
                 className="explorar-button"
               >
-                Explorar!
+                {t('explore')}
               </button>
             </div>
           </div>

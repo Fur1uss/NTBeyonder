@@ -1,40 +1,49 @@
 {
-  "version": 2,
-  "builds": [
+  "functions": {
+    "api/nasa-proxy.js": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "source": "/api/nasa/(.*)",
+      "destination": "/api/nasa-proxy?url=$1"
+    },
+    {
+      "source": "/opm-moon/(.*)",
+      "destination": "https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/$1"
+    },
+    {
+      "source": "/opm-mars/(.*)",
+      "destination": "https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/$1"
     }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/assets/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/assets/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "source": "/opm-moon/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, HEAD, OPTIONS"
+        }
+      ]
     },
     {
-      "src": "/models/(.*\\.(glb|gltf|obj|fbx|3ds|dae|pcd|ply|stl))",
-      "dest": "/models/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable",
-        "Content-Type": "application/octet-stream"
-      }
-    },
-    {
-      "src": "/(.*\\.(png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/opm-mars/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, HEAD, OPTIONS"
+        }
+      ]
     }
   ]
 }

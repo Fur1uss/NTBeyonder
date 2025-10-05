@@ -6,6 +6,7 @@ import './MarsViewer.css';
 import BackgroundStars from '../BackgroundStars/BackgroundStars';
 import CoordinateSearch from '../CoordinateSearch/CoordinateSearch';
 import PlanetChatbot from '../PlanetChatbot/PlanetChatbot';
+import { useLanguage } from '../../hooks/useLanguage';
 
 const MarsViewer = ({ onClose }) => {
     const [selectedLayer, setSelectedLayer] = useState('visual');
@@ -16,6 +17,7 @@ const MarsViewer = ({ onClose }) => {
     const [currentImage, setCurrentImage] = useState(null);
     const [showImageModal, setShowImageModal] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const { t } = useLanguage();
     
     const mapRef = useRef(null);
     const mapInstanceRef = useRef(null);
@@ -201,11 +203,11 @@ const MarsViewer = ({ onClose }) => {
             
             let message = '';
             if (zoom >= 5) {
-                message = '🔴 Alta resolución - Detalles de la superficie marciana';
+                message = `🔴 ${t('marsHighRes')}`;
             } else if (zoom >= 3) {
-                message = '🔴 Resolución media - Regiones de Marte';
+                message = `🔴 ${t('marsMediumRes')}`;
             } else {
-                message = '🔴 Vista global de Marte';
+                message = `🔴 ${t('marsGlobalRes')}`;
             }
             
             if (message) {
@@ -367,7 +369,7 @@ const MarsViewer = ({ onClose }) => {
         window.currentCoordinateMarker = marker;
         
         // Mostrar mensaje de éxito
-        showSuccessMessage(`🔴 Navegando a: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+        showSuccessMessage(`🔴 ${t('marsNavigatingTo')} ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
     };
 
     // Función para mostrar mensajes de éxito
@@ -414,7 +416,7 @@ const MarsViewer = ({ onClose }) => {
                     {isLoading && (
                         <div className="loader-overlay">
                             <div className="planet-loader"></div>
-                            <p>Cargando imágenes de Marte...</p>
+                            <p>{t('loadingMars')}</p>
                         </div>
                     )}
                     {error && (
@@ -429,9 +431,9 @@ const MarsViewer = ({ onClose }) => {
                 {/* Panel de controles a la derecha */}
                 <div className="controls-panel">
                     <div className="panel-header">
-                        <h2><i className="fas fa-globe"></i> Marte</h2>
+                        <h2><i className="fas fa-globe"></i> {t('marsTitle')}</h2>
                         <div className="header-buttons">
-                            <button className="chat-btn" onClick={() => setIsChatOpen(!isChatOpen)} title="Hablar con Marte">
+                            <button className="chat-btn" onClick={() => setIsChatOpen(!isChatOpen)} title={t('talkToMars')}>
                                 <i className="fas fa-comments"></i>
                             </button>
                             <button className="image-btn" onClick={openImageModal} disabled={!currentImage}>

@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber'
 import { useGLTF, OrbitControls } from '@react-three/drei'
 import './WebNavigation.css'
 import BackgroundStars from '../../components/BackgroundStars/BackgroundStars'
+import { useLanguage } from '../../hooks/useLanguage'
 
 // Error Boundary para manejar errores de carga de modelos
 class ErrorBoundary extends React.Component {
@@ -124,6 +125,7 @@ function Earth({ modelPath = '/models/Earth_1_12756.glb', planetName = 'Tierra' 
 const WebNavigation = () => {
     const [currentPlanet, setCurrentPlanet] = useState(0);
     const navigate = useNavigate();
+    const { t } = useLanguage();
 
     // Los modelos GLB son demasiado grandes para Vercel, usando esferas como fallback
 
@@ -140,8 +142,8 @@ const WebNavigation = () => {
 
     const planets = [
         {
-            name: 'Tierra',
-            description: 'Nuestro hogar, el planeta Tierra, es un planeta terrestre y rocoso. Tiene una superficie sólida y activa, con montañas, valles, cañones, llanuras y mucho más. La Tierra es especial porque es un planeta océano, ya que el agua cubre el 70% de su superficie.',
+            name: t('earthName'),
+            description: t('earthDesc'),
             details: {
                 diameter: '12,742 km',
                 distance: '149.6 millones km',
@@ -151,8 +153,8 @@ const WebNavigation = () => {
             model: '/models/Earth_1_12756.glb'
         },
         {
-            name: 'Marte',
-            description: 'El planeta rojo, nuestro próximo destino en la exploración espacial. Con sus polos de hielo y evidencia de agua pasada, Marte representa la esperanza de encontrar vida más allá de la Tierra.',
+            name: t('marsName'),
+            description: t('marsDesc'),
             details: {
                 diameter: '6,779 km',
                 distance: '227.9 millones km',
@@ -162,8 +164,8 @@ const WebNavigation = () => {
             model: '/models/Mars.glb'
         },
         {
-            name: 'Luna',
-            description: 'Nuestro satélite natural, la Luna, ha sido testigo de la evolución de la vida en la Tierra. Su superficie craterizada cuenta la historia de los impactos cósmicos y su influencia gravitacional estabiliza el clima terrestre.',
+            name: t('moonName'),
+            description: t('moonDesc'),
             details: {
                 diameter: '3,474 km',
                 distance: '384,400 km',
@@ -223,21 +225,21 @@ const WebNavigation = () => {
                         <h1>{planet.name}</h1>
                         <p>{planet.description}</p>
                         <div className="planet-details">
-                            <strong>Diámetro:</strong> {planet.details.diameter}<br/>
-                            <strong>Distancia al Sol:</strong> {planet.details.distance}<br/>
-                            <strong>Período orbital:</strong> {planet.details.period}<br/>
-                            <strong>Satélites:</strong> {planet.details.satellites}
+                            <strong>{t('diameter')}</strong> {planet.details.diameter}<br/>
+                            <strong>{t('distanceToSun')}</strong> {planet.details.distance}<br/>
+                            <strong>{t('orbitalPeriod')}</strong> {planet.details.period}<br/>
+                            <strong>{t('satellites')}</strong> {planet.details.satellites}
                         </div>
                         <button 
                             className="explore-button"
                             onClick={() => {
-                                if (planet.name === 'Tierra') {
+                                if (planet.name === t('earthName')) {
                                     // Navegar al visor de la Tierra
                                     navigate('/earth-viewer');
-                                } else if (planet.name === 'Marte') {
+                                } else if (planet.name === t('marsName')) {
                                     // Navegar al visor de Marte
                                     navigate('/mars-viewer');
-                                } else if (planet.name === 'Luna') {
+                                } else if (planet.name === t('moonName')) {
                                     // Navegar al visor de la Luna
                                     navigate('/moon-viewer');
                                 } else {
@@ -245,7 +247,7 @@ const WebNavigation = () => {
                                 }
                             }}
                         >
-                            EXPLORAR DETALLES
+                            {t('exploreDetails')}
                         </button>
                     </div>
                 </div>

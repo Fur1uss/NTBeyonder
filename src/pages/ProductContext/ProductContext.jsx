@@ -4,9 +4,11 @@ import './ProductContext.css'
 import OrbitalPlanetsOriginal from '../../components/OrbitalPlanetsOriginal/OrbitalPlanetsOriginal'
 import BackgroundStars from '../../components/BackgroundStars/BackgroundStars'
 import BlurText from '../../components/BlurText/BlurText'
+import { useLanguage } from '../../hooks/useLanguage'
 
 const ProductContext = () => {
     const navigate = useNavigate();
+    const { t } = useLanguage();
 
     const handleStart = () => {
         navigate('/universe-map');
@@ -34,10 +36,7 @@ const ProductContext = () => {
                     className="blur-text--slide-up"
                 >
                     <p>
-                        NTBeyonder es una plataforma innovadora que trasciende los límites tradicionales 
-                        de la tecnología. Nuestra misión es explorar nuevas fronteras digitales, 
-                        conectando ideas revolucionarias con soluciones prácticas que transforman 
-                        la manera en que interactuamos con el mundo digital.
+                        {t('description')}
                     </p>
                 </BlurText>
                 <BlurText 
@@ -50,7 +49,7 @@ const ProductContext = () => {
                         className="start-button"
                         onClick={handleStart}
                     >
-                        COMENZAR
+                        {t('start')}
                     </button>
                 </BlurText>
             </div>

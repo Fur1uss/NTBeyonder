@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import Galaxy from '../Galaxy/Galaxy'
 import BackgroundStars from '../BackgroundStar/BackgroundStar'
 import './UniverseMap.css'
+import { useLanguage } from '../../hooks/useLanguage'
 
 const UniverseMap = ({ onGalaxyClick }) => {
   const navigate = useNavigate()
+  const { t } = useLanguage()
 
   const handleAndromedaClick = () => {
     navigate('/andromeda')
@@ -82,7 +84,7 @@ const UniverseMap = ({ onGalaxyClick }) => {
           fontWeight: 'bold',
           textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
         }}>
-          Vía Láctea
+          {t('viaLacteaLabel')}
         </div>
       </div>
 
@@ -149,7 +151,7 @@ const UniverseMap = ({ onGalaxyClick }) => {
           fontWeight: 'bold',
           textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
         }}>
-          Andrómeda
+          {t('andromedaLabel')}
         </div>
       </div>
     </div>

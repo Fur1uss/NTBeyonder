@@ -6,6 +6,7 @@ import './EarthViewer.css';
 import BackgroundStars from '../BackgroundStars/BackgroundStars';
 import CoordinateSearch from '../CoordinateSearch/CoordinateSearch';
 import PlanetChatbot from '../PlanetChatbot/PlanetChatbot';
+import { useLanguage } from '../../hooks/useLanguage';
 
 const EarthViewer = ({ onClose }) => {
     const [selectedLayer, setSelectedLayer] = useState('visual');
@@ -16,6 +17,7 @@ const EarthViewer = ({ onClose }) => {
     const [currentImage, setCurrentImage] = useState(null);
     const [showImageModal, setShowImageModal] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const { t } = useLanguage();
     
     const mapRef = useRef(null);
     const mapInstanceRef = useRef(null);
@@ -194,11 +196,11 @@ const EarthViewer = ({ onClose }) => {
             
             let message = '';
             if (zoom >= 6) {
-                message = '🌍 Alta resolución - Detalles regionales de la Tierra';
+                message = `🌍 ${t('highRes')}`;
             } else if (zoom >= 4) {
-                message = '🌍 Resolución media - Vista continental';
+                message = `🌍 ${t('mediumRes')}`;
             } else if (zoom >= 2) {
-                message = '🌍 Resolución global - Vista mundial';
+                message = `🌍 ${t('globalRes')}`;
             }
             
             if (message) {
@@ -330,12 +332,12 @@ const EarthViewer = ({ onClose }) => {
         // Agregar popup con información de coordenadas
         marker.bindPopup(`
             <div style="color: black; font-family: Arial, sans-serif;">
-                <h3 style="margin: 0 0 8px 0; color: #2c3e50;">📍 Coordenadas</h3>
+                <h3 style="margin: 0 0 8px 0; color: #2c3e50;">📍 ${t('coordinates')}</h3>
                 <p style="margin: 0 0 8px 0; color: #7f8c8d;">
-                    <strong>Latitud:</strong> ${lat.toFixed(6)}°<br/>
-                    <strong>Longitud:</strong> ${lng.toFixed(6)}°
+                    <strong>${t('latitude')}</strong> ${lat.toFixed(6)}°<br/>
+                    <strong>${t('longitude')}</strong> ${lng.toFixed(6)}°
                 </p>
-                <small style="color: #95a5a6;">Navegación exitosa</small>
+                <small style="color: #95a5a6;">${t('navigationSuccess')}</small>
             </div>
         `).openPopup();
         
@@ -346,7 +348,7 @@ const EarthViewer = ({ onClose }) => {
         window.currentCoordinateMarker = marker;
         
         // Mostrar mensaje de éxito
-        showSuccessMessage(`🌍 Navegando a: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+        showSuccessMessage(`🌍 ${t('navigatingTo')} ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
     };
 
     // Función para mostrar mensajes de éxito
@@ -393,7 +395,7 @@ const EarthViewer = ({ onClose }) => {
                     {isLoading && (
                         <div className="loader-overlay">
                             <div className="planet-loader"></div>
-                            <p>Cargando imágenes de la Tierra...</p>
+                            <p>{t('loadingEarth')}</p>
                         </div>
                     )}
                     {error && (
@@ -408,9 +410,9 @@ const EarthViewer = ({ onClose }) => {
                 {/* Panel de controles a la derecha */}
                 <div className="controls-panel">
                     <div className="panel-header">
-                        <h2><i className="fas fa-globe"></i> Tierra</h2>
+                        <h2><i className="fas fa-globe"></i> {t('earthTitle')}</h2>
                         <div className="header-buttons">
-                            <button className="chat-btn" onClick={() => setIsChatOpen(!isChatOpen)} title="Hablar con la Tierra">
+                            <button className="chat-btn" onClick={() => setIsChatOpen(!isChatOpen)} title={t('talkToEarth')}>
                                 <i className="fas fa-comments"></i>
                             </button>
                             <button className="image-btn" onClick={openImageModal} disabled={!currentImage}>
@@ -422,7 +424,7 @@ const EarthViewer = ({ onClose }) => {
                     <div className="controls-content">
                         {/* Selector de capa */}
                         <div className="control-group">
-                            <label htmlFor="layer-select">Capa:</label>
+                            <label htmlFor="layer-select">{t('layer')}</label>
                             <select 
                                 id="layer-select" 
                                 value={selectedLayer} 
@@ -438,7 +440,7 @@ const EarthViewer = ({ onClose }) => {
                         
                         {/* Selector de fecha */}
                         <div className="control-group">
-                            <label htmlFor="date-select">Fecha:</label>
+                            <label htmlFor="date-select">{t('date')}</label>
                             <input
                                 type="date"
                                 id="date-select"

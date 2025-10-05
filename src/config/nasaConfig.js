@@ -215,12 +215,22 @@ export const getMoonDates = () => {
     return NASA_CONFIG.GIBS_CONFIG.MOON_DATES;
 };
 
-// Función para construir URL de API de NASA
+// Función para construir URL de API de NASA (usando proxy en producción)
 export const buildNASAUrl = (endpoint, params = {}) => {
-    const baseUrl = NASA_CONFIG.ENDPOINTS.BASE;
-    const apiKey = NASA_CONFIG.API_CONFIG.API_KEY;
-    const queryParams = new URLSearchParams({ ...params, api_key: apiKey });
-    return `${baseUrl}${endpoint}?${queryParams}`;
+    // En producción, usar proxy local para evitar CORS
+    const isProduction = process.env.NODE_ENV === 'production' || window.location.hostname !== 'localhost';
+    
+    if (isProduction) {
+        // Usar proxy local
+        const queryParams = new URLSearchParams(params);
+        return `/api/nasa${endpoint}${queryParams.toString() ? '?' + queryParams.toString() : ''}`;
+    } else {
+        // En desarrollo, usar API directa
+        const baseUrl = NASA_CONFIG.ENDPOINTS.BASE;
+        const apiKey = NASA_CONFIG.API_CONFIG.API_KEY;
+        const queryParams = new URLSearchParams({ ...params, api_key: apiKey });
+        return `${baseUrl}${endpoint}?${queryParams}`;
+    }
 };
 
 export default NASA_CONFIG;

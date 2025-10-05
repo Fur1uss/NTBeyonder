@@ -2,9 +2,11 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './AndromedaPage.css'
 import BackgroundStarSlide from '../BackgroundStarSlide/BackgroundStarSlide'
+import { useLanguage } from '../../hooks/useLanguage'
 
 const AndromedaPage = () => {
   const navigate = useNavigate()
+  const { t } = useLanguage()
 
   const handleBack = () => {
     console.log('Botón clickeado - navegando a /universe-map') // Debug
@@ -27,7 +29,7 @@ const AndromedaPage = () => {
           className="back-button"
          
         >
-          ← Volver al Universo
+          {t('backToUniverse')}
         </button>
 
         <div className="andromeda-content">
@@ -39,11 +41,9 @@ const AndromedaPage = () => {
             />
             
             <div className="andromeda-description">
-                <h3>Andrómeda (M31)</h3>
+                <h3>{t('andromedaTitle')}</h3>
               <p>
-                Es una galaxia espiral que se encuentra a unos 2.5 millones de años luz de la Tierra. 
-                Siendo el objeto visible a simple vista más lejano que se puede observar. Es la galaxia 
-                de gran tamaño más cercana a la Vía Láctea y se acerca hacia nosotros a 301 km/s.
+                {t('andromedaDesc')}
               </p>
             </div>
           </div>

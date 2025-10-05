@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { NASA_CONFIG, buildPlanetaryTileUrl } from '../../config/nasaConfig';
+import { NASA_CONFIG, buildPlanetaryTileUrl, buildNASAUrl } from '../../config/nasaConfig';
 import './MoonViewer.css';
 import BackgroundStars from '../BackgroundStars/BackgroundStars';
 import CoordinateSearch from '../CoordinateSearch/CoordinateSearch';
 import PlanetChatbot from '../PlanetChatbot/PlanetChatbot';
+import { useLanguage } from '../../hooks/useLanguage';
 
 const MoonViewer = ({ onClose }) => {
     const [selectedLayer, setSelectedLayer] = useState('visual');
@@ -15,6 +16,7 @@ const MoonViewer = ({ onClose }) => {
     const mapRef = useRef(null);
     const mapInstanceRef = useRef(null);
     const currentLayerRef = useRef(null);
+    const { t } = useLanguage();
 
     const moonLayers = NASA_CONFIG.GIBS_CONFIG.MOON_LAYERS;
     const moonDates = {
@@ -101,7 +103,8 @@ const MoonViewer = ({ onClose }) => {
         setError(null);
 
         // Crear nueva capa planetaria (Luna) - Solo Mosaico Global
-        const tileUrl = '/opm-moon/opmbuilder/api/v1/map/named/opm-moon-basemap-v0-1/all/{z}/{x}/{y}.png';
+        // Usar proxy local para evitar CORS
+        const tileUrl = '/opm-moon/api/v1/map/named/opm-moon-basemap-v0-1/all/{z}/{x}/{y}.png';
         
         const newLayer = L.tileLayer(tileUrl, {
             attribution: `${layerConfig.attribution} - ${date}`,
@@ -180,11 +183,11 @@ const MoonViewer = ({ onClose }) => {
             
             let message = '';
             if (zoom >= 4) {
-                message = '🌙 Alta resolución - Detalles de la superficie lunar';
+                message = `🌙 ${t('moonHighRes')}`;
             } else if (zoom >= 2) {
-                message = '🌙 Resolución media - Vista de la Luna';
+                message = `🌙 ${t('moonMediumRes')}`;
             } else if (zoom >= 1) {
-                message = '🌙 Resolución global - Vista completa de la Luna';
+                message = `🌙 ${t('moonGlobalRes')}`;
             }
             
             if (message) {
@@ -256,10 +259,8 @@ const MoonViewer = ({ onClose }) => {
     const fetchMoonImage = useCallback(async () => {
         setIsLoading(true);
         try {
-            // Usar APOD para imágenes de la Luna
-            const response = await fetch(
-                `${NASA_CONFIG.ENDPOINTS.BASE}/planetary/apod?api_key=${NASA_CONFIG.API_CONFIG.API_KEY}`
-            );
+            // Usar proxy para evitar CORS
+            const response = await fetch(buildNASAUrl(NASA_CONFIG.API_CONFIG.ENDPOINTS.APOD));
             if (!response.ok) throw new Error('Error fetching APOD image');
             const data = await response.json();
             setCurrentImage({
@@ -269,8 +270,12 @@ const MoonViewer = ({ onClose }) => {
             });
         } catch (err) {
             console.error('Error loading NASA image:', err);
-            setError('Error al cargar la imagen de NASA.');
-            setCurrentImage(null);
+            // Usar imagen de fallback para la Luna
+            setCurrentImage({
+                title: 'Luna - Nuestro Satélite Natural',
+                url: 'https://moon.nasa.gov/system/resources/detail_files/7808_global-color-views-moon-PIA00407-full2.jpg',
+                description: 'Vista global de la Luna desde el espacio. Nuestro satélite natural que ha sido testigo de la evolución de la vida en la Tierra.'
+            });
         } finally {
             setIsLoading(false);
         }
@@ -319,7 +324,7 @@ const MoonViewer = ({ onClose }) => {
         window.currentCoordinateMarker = marker;
         
         // Mostrar mensaje de éxito
-        showSuccessMessage(`🌙 Navegando a: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+        showSuccessMessage(`🌙 ${t('moonNavigatingTo')} ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
     };
 
     // Función para mostrar mensajes de éxito
@@ -366,7 +371,7 @@ const MoonViewer = ({ onClose }) => {
                     {isLoading && (
                         <div className="loader-overlay">
                             <div className="planet-loader"></div>
-                            <p>Cargando imágenes de la Luna...</p>
+                            <p>{t('loadingMoon')}</p>
                         </div>
                     )}
                     {error && (
@@ -381,9 +386,9 @@ const MoonViewer = ({ onClose }) => {
                 {/* Panel de controles a la derecha */}
                 <div className="controls-panel">
                     <div className="panel-header">
-                        <h2><i className="fas fa-moon"></i> Luna</h2>
+                        <h2><i className="fas fa-moon"></i> {t('moonTitle')}</h2>
                         <div className="header-buttons">
-                            <button className="chat-btn" onClick={() => setIsChatOpen(!isChatOpen)} title="Hablar con la Luna">
+                            <button className="chat-btn" onClick={() => setIsChatOpen(!isChatOpen)} title={t('talkToMoon')}>
                                 <i className="fas fa-comments"></i>
                             </button>
                             <button className="image-btn" onClick={openImageModal} disabled={!currentImage}>
