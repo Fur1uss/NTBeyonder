@@ -17,9 +17,9 @@ createRoot(document.getElementById('root')).render(
         <Route path='/' element={<Home />} />
         <Route path='/product-context' element={<ProductContext />} />
         <Route path='/web-navigation' element={<WebNavigation />} />
-            <Route path='/earth-viewer' element={<EarthViewerPage />} />
-            <Route path='/mars-viewer' element={<MarsViewerPage />} />
-            <Route path='/moon-viewer' element={<MoonViewerPage />} />
+        <Route path='/earth-viewer' element={<EarthViewerPage />} />
+        <Route path='/mars-viewer' element={<MarsViewerPage />} />
+        <Route path='/moon-viewer' element={<MoonViewerPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

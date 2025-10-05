@@ -1,0 +1,467 @@
+/* ===== PLANET CHATBOT - DISEÑO MODERNO Y MINIMALISTA ===== */
+
+/* Variables CSS para consistencia */
+:root {
+    --chat-bg-primary: #1A1A1A;
+    --chat-bg-secondary: #222222;
+    --chat-bg-messages: #2F2F2F;
+    --chat-bg-user: #6C63FF;
+    --chat-text-primary: #EAEAEA;
+    --chat-text-secondary: #B0B0B0;
+    --chat-border: rgba(255, 255, 255, 0.1);
+    --chat-shadow: rgba(0, 0, 0, 0.3);
+    --chat-radius: 1.2rem;
+    --chat-spacing: 1rem;
+    --chat-font: 'Inter', 'Poppins', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Overlay y contenedor principal */
+.planet-chatbot-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-container {
+    width: 400px !important;
+    height: 600px !important;
+    background: var(--chat-bg-primary) !important;
+    border: 1px solid var(--chat-border) !important;
+    border-radius: var(--chat-radius) 0 0 var(--chat-radius) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    box-shadow: -8px 0 32px var(--chat-shadow) !important;
+    margin-top: 20px !important;
+    margin-right: 20px !important;
+    pointer-events: all !important;
+    backdrop-filter: blur(20px) !important;
+    transform: none !important;
+    animation: none !important;
+    position: relative !important;
+    font-family: var(--chat-font) !important;
+}
+
+/* Header del chat */
+.planet-chatbot-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: var(--chat-spacing) !important;
+    background: var(--chat-bg-secondary) !important;
+    border-bottom: 1px solid var(--chat-border) !important;
+    transform: none !important;
+    animation: none !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+    width: 100% !important;
+}
+
+.planet-chatbot-bot-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-avatar {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, #6C63FF, #4A90E2) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3) !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-emoji {
+    font-size: 1.5rem !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-bot-details {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-bot-name {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: var(--chat-text-primary) !important;
+    margin: 0 !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-status {
+    font-size: 0.85rem !important;
+    color: var(--chat-text-secondary) !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-status.typing {
+    color: #6C63FF !important;
+}
+
+.planet-chatbot-close-btn {
+    background: none !important;
+    border: none !important;
+    color: var(--chat-text-secondary) !important;
+    cursor: pointer !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-close-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--chat-text-primary) !important;
+}
+
+/* Contenedor de mensajes */
+.planet-chatbot-messages {
+    flex: 1 !important;
+    padding: var(--chat-spacing) !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    background: var(--chat-bg-primary) !important;
+    transform: none !important;
+    animation: none !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+}
+
+/* Scrollbar personalizado */
+.planet-chatbot-messages::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.planet-chatbot-messages::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.planet-chatbot-messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 3px !important;
+}
+
+.planet-chatbot-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Mensajes */
+.planet-chatbot-message {
+    display: flex !important;
+    width: 100% !important;
+    transform: none !important;
+    animation: messageSlideIn 0.3s ease-out !important;
+    margin-bottom: 8px !important;
+}
+
+.planet-chatbot-message.user {
+    justify-content: flex-end !important;
+    align-items: flex-end !important;
+}
+
+.planet-chatbot-message.bot {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+}
+
+/* Avatar pequeño para mensajes del bot */
+.planet-chatbot-avatar-small {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, #6C63FF, #4A90E2) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-right: 8px !important;
+    flex-shrink: 0 !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-emoji-small {
+    font-size: 1rem !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+/* Burbujas de mensaje */
+.planet-chatbot-message-bubble {
+    max-width: 75% !important;
+    min-width: 60px !important;
+    padding: 12px 16px !important;
+    border-radius: var(--chat-radius) !important;
+    position: relative !important;
+    transform: none !important;
+    animation: none !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+.planet-chatbot-message.user .planet-chatbot-message-bubble {
+    background: var(--chat-bg-user) !important;
+    color: white !important;
+    border-bottom-right-radius: 6px !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    box-shadow: 0 2px 8px rgba(108, 99, 255, 0.3) !important;
+}
+
+.planet-chatbot-message.bot .planet-chatbot-message-bubble {
+    background: var(--chat-bg-messages) !important;
+    color: var(--chat-text-primary) !important;
+    border: 1px solid var(--chat-border) !important;
+    border-bottom-left-radius: 6px !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+.planet-chatbot-message-text {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    margin: 0 0 4px 0 !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-message-time {
+    font-size: 0.75rem !important;
+    color: var(--chat-text-secondary) !important;
+    opacity: 0.7 !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+/* Estado de escritura */
+.planet-chatbot-message-bubble.typing {
+    background: var(--chat-bg-messages) !important;
+    border: 1px solid var(--chat-border) !important;
+    padding: 16px !important;
+}
+
+.planet-chatbot-typing-dots {
+    display: flex !important;
+    gap: 4px !important;
+    align-items: center !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-typing-dots span {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    background: var(--chat-text-secondary) !important;
+    animation: typingPulse 1.4s infinite ease-in-out !important;
+}
+
+.planet-chatbot-typing-dots span:nth-child(1) {
+    animation-delay: -0.32s !important;
+}
+
+.planet-chatbot-typing-dots span:nth-child(2) {
+    animation-delay: -0.16s !important;
+}
+
+/* Área de input */
+.planet-chatbot-input-area {
+    padding: var(--chat-spacing) !important;
+    background: var(--chat-bg-secondary) !important;
+    border-top: 1px solid var(--chat-border) !important;
+    flex-shrink: 0 !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-input-container {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-input {
+    flex: 1 !important;
+    padding: 12px 16px !important;
+    background: var(--chat-bg-messages) !important;
+    border: 1px solid var(--chat-border) !important;
+    border-radius: 24px !important;
+    color: var(--chat-text-primary) !important;
+    font-size: 0.95rem !important;
+    font-family: var(--chat-font) !important;
+    outline: none !important;
+    transition: all 0.2s ease !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-input:focus {
+    border-color: #6C63FF !important;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1) !important;
+}
+
+.planet-chatbot-input::placeholder {
+    color: var(--chat-text-secondary) !important;
+}
+
+.planet-chatbot-input:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+.planet-chatbot-send-btn {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    background: var(--chat-bg-user) !important;
+    border: none !important;
+    color: white !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(108, 99, 255, 0.3) !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.planet-chatbot-send-btn:hover:not(:disabled) {
+    background: #5A52E5 !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4) !important;
+}
+
+.planet-chatbot-send-btn:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+/* Animaciones */
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes typingPulse {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .planet-chatbot-container {
+        width: 100% !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .planet-chatbot-messages {
+        padding: 12px !important;
+    }
+    
+    .planet-chatbot-message-bubble {
+        max-width: 85% !important;
+    }
+    
+    .planet-chatbot-input-area {
+        padding: 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .planet-chatbot-header {
+        padding: 12px !important;
+    }
+    
+    .planet-chatbot-avatar {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    
+    .planet-chatbot-emoji {
+        font-size: 1.2rem !important;
+    }
+    
+    .planet-chatbot-bot-name {
+        font-size: 1rem !important;
+    }
+    
+    .planet-chatbot-messages {
+        padding: 10px !important;
+    }
+    
+    .planet-chatbot-message-bubble {
+        padding: 10px 14px !important;
+        max-width: 90% !important;
+    }
+    
+    .planet-chatbot-input {
+        padding: 10px 14px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .planet-chatbot-send-btn {
+        width: 40px !important;
+        height: 40px !important;
+    }
+}
+
+/* Modo claro (opcional) */
+@media (prefers-color-scheme: light) {
+    :root {
+        --chat-bg-primary: #FFFFFF;
+        --chat-bg-secondary: #F7F7F8;
+        --chat-bg-messages: #EDEDED;
+        --chat-bg-user: #6C63FF;
+        --chat-text-primary: #1C1C1E;
+        --chat-text-secondary: #8E8E93;
+        --chat-border: rgba(0, 0, 0, 0.1);
+        --chat-shadow: rgba(0, 0, 0, 0.1);
+    }
+}

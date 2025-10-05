@@ -228,6 +228,7 @@ const WebNavigation = () => {
         }
     ];
 
+
     return (
         <div className="web-navigation">
             <BackgroundStars />
@@ -318,6 +319,7 @@ const WebNavigation = () => {
                     />
                 ))}
             </div>
+
         </div>
     )
 }

@@ -4,6 +4,8 @@ import 'leaflet/dist/leaflet.css';
 import { NASA_CONFIG, buildPlanetaryTileUrl } from '../../config/nasaConfig';
 import './MoonViewer.css';
 import BackgroundStars from '../BackgroundStars/BackgroundStars';
+import CoordinateSearch from '../CoordinateSearch/CoordinateSearch';
+import PlanetChatbot from '../PlanetChatbot/PlanetChatbot';
 
 const MoonViewer = ({ onClose }) => {
     const [selectedLayer, setSelectedLayer] = useState('visual');
@@ -246,8 +248,10 @@ const MoonViewer = ({ onClose }) => {
         }
     };
 
+
     const [showImageModal, setShowImageModal] = useState(false);
     const [currentImage, setCurrentImage] = useState(null);
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     const fetchMoonImage = useCallback(async () => {
         setIsLoading(true);
@@ -284,14 +288,76 @@ const MoonViewer = ({ onClose }) => {
         setShowImageModal(false);
     };
 
-    return (
-        <div className="moon-viewer">
-            <BackgroundStars />
-            
-            {/* Botón de cerrar */}
-            <button className="close-btn" onClick={handleClose}>
-                <i className="fas fa-times"></i>
-            </button>
+    // Función para navegar a coordenadas específicas
+    const handleCoordinateNavigation = (lat, lng) => {
+        if (!mapInstanceRef.current) return;
+        
+        const map = mapInstanceRef.current;
+        
+        // Centrar el mapa en las coordenadas
+        map.setView([lat, lng], 8);
+        
+        // Agregar marcador
+        const marker = L.marker([lat, lng]).addTo(map);
+        
+        // Agregar popup con información de coordenadas
+        marker.bindPopup(`
+            <div style="color: black; font-family: Arial, sans-serif;">
+                <h3 style="margin: 0 0 8px 0; color: #2c3e50;">📍 Coordenadas</h3>
+                <p style="margin: 0 0 8px 0; color: #7f8c8d;">
+                    <strong>Latitud:</strong> ${lat.toFixed(6)}°<br/>
+                    <strong>Longitud:</strong> ${lng.toFixed(6)}°
+                </p>
+                <small style="color: #95a5a6;">Navegación exitosa</small>
+            </div>
+        `).openPopup();
+        
+        // Remover marcador anterior si existe
+        if (window.currentCoordinateMarker) {
+            map.removeLayer(window.currentCoordinateMarker);
+        }
+        window.currentCoordinateMarker = marker;
+        
+        // Mostrar mensaje de éxito
+        showSuccessMessage(`🌙 Navegando a: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+    };
+
+    // Función para mostrar mensajes de éxito
+    const showSuccessMessage = (message) => {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'success-message';
+        messageDiv.textContent = message;
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(46, 204, 113, 0.9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 1001;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 0.3s ease;
+        `;
+        
+        document.body.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
+            }
+        }, 3000);
+    };
+
+        return (
+            <div className="moon-viewer">
+                <BackgroundStars />
+                
+                {/* Botón de cerrar */}
+                <button className="close-btn" onClick={handleClose}>
+                    <i className="fas fa-times"></i>
+                </button>
 
             {/* Layout principal: Mapa a la izquierda, controles a la derecha */}
             <div className="moon-viewer-layout">
@@ -316,9 +382,14 @@ const MoonViewer = ({ onClose }) => {
                 <div className="controls-panel">
                     <div className="panel-header">
                         <h2><i className="fas fa-moon"></i> Luna</h2>
-                        <button className="image-btn" onClick={openImageModal} disabled={!currentImage}>
-                            <i className="fas fa-image"></i>
-                        </button>
+                        <div className="header-buttons">
+                            <button className="chat-btn" onClick={() => setIsChatOpen(!isChatOpen)} title="Hablar con la Luna">
+                                <i className="fas fa-comments"></i>
+                            </button>
+                            <button className="image-btn" onClick={openImageModal} disabled={!currentImage}>
+                                <i className="fas fa-image"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div className="controls-content">
@@ -350,6 +421,14 @@ const MoonViewer = ({ onClose }) => {
                             <small>Zoom máximo: 10</small>
                         </div>
 
+                        {/* Búsqueda por coordenadas */}
+                        <div className="coordinate-search-section">
+                            <CoordinateSearch 
+                                onNavigate={handleCoordinateNavigation}
+                                planet="moon"
+                            />
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -373,6 +452,13 @@ const MoonViewer = ({ onClose }) => {
                     </div>
                 </div>
             )}
+
+            {/* Chatbot de Planetas */}
+            <PlanetChatbot
+                currentPlanet="Luna"
+                isVisible={isChatOpen}
+                onClose={() => setIsChatOpen(false)}
+            />
         </div>
     );
 };

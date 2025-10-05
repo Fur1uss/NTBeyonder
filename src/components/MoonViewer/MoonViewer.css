@@ -101,6 +101,33 @@
     letter-spacing: 1px;
 }
 
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.chat-btn {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(138, 43, 226, 0.1));
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.chat-btn:hover {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(138, 43, 226, 0.2));
+    border-color: rgba(138, 43, 226, 0.6);
+    transform: scale(1.1);
+}
+
 .image-btn {
     background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(74, 144, 226, 0.1));
     border: 2px solid rgba(74, 144, 226, 0.4);
@@ -198,6 +225,13 @@
 .layer-info small {
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.6);
+}
+
+/* Sección de búsqueda por coordenadas */
+.coordinate-search-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Capa activa */
