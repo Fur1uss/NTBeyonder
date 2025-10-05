@@ -41,7 +41,7 @@ const ViaLacteaPage = () => {
         <div className="viaLactea-content">
           <div className="viaLactea-main-content">
             <img 
-              src="/ViaLactea1.png" 
+              src="/ViaLactea.jpg"
               alt="Vía Láctea" 
               className="viaLactea-image"
             />
