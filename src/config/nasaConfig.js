@@ -1,4 +1,4 @@
-// Configuración avanzada de APIs de NASA para React
+// Configuración avanzada de APIs de NASA - Basado en nasaproyect
 export const NASA_CONFIG = {
     // URLs base para diferentes servicios
     ENDPOINTS: {
@@ -10,229 +10,217 @@ export const NASA_CONFIG = {
     
     // Configuración específica para GIBS
     GIBS_CONFIG: {
+        WMTS_BASE: 'https://gibs.earthdata.nasa.gov/wmts/epsg4326/best',
+        TILE_SIZE: 256,
+        
+        // Función para obtener fecha actual en formato GIBS
+        getCurrentDate() {
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            return yesterday.toISOString().split('T')[0];
+        },
+        
         // Capas disponibles para la Tierra
         EARTH_LAYERS: {
             visual: {
-                name: 'MODIS_Terra_CorrectedReflectance_TrueColor',
-                title: 'MODIS Terra - Color Verdadero',
+                name: 'MODIS_Aqua_CorrectedReflectance_TrueColor',
+                title: 'Color Verdadero',
                 format: 'jpg',
                 maxZoom: 9,
-                attribution: 'NASA GIBS'
+                attribution: 'NASA GIBS',
+                description: 'Imágenes como las vería el ojo humano'
             },
             infrared: {
                 name: 'MODIS_Aqua_CorrectedReflectance_Bands721',
-                title: 'MODIS Aqua - Infrarrojo (7-2-1)',
+                title: 'Infrarrojo',
                 format: 'jpg',
                 maxZoom: 9,
-                attribution: 'NASA GIBS'
-            },
-            radar: {
-                name: 'VIIRS_SNPP_DayNightBand_ENCC',
-                title: 'VIIRS - Día/Noche',
-                format: 'png',
-                maxZoom: 8,
-                attribution: 'NASA GIBS'
-            },
-            earthatnight: {
-                name: 'VIIRS_Black_Marble',
-                title: 'Earth at Night - Black Marble',
-                format: 'jpg',
-                maxZoom: 8,
-                attribution: 'NASA GIBS / VIIRS'
-            },
-            landsat: {
-                name: 'Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual',
-                title: 'Landsat - Compuesto Anual',
-                format: 'jpg',
-                maxZoom: 7,
-                attribution: 'NASA GIBS / USGS'
+                attribution: 'NASA GIBS',
+                description: 'Composición que resalta vegetación y agua'
             }
         },
-        
-        // Capas disponibles para Marte
+
+        // Capas para Marte (solo MOLA - Topografía en Color)
         MARS_LAYERS: {
             visual: {
-                name: 'MARS_MOLA_Shaded_Relief',
-                title: 'MOLA - Relieve Sombreado',
-                format: 'jpg',
+                name: 'opm-mars-basemap-v0-2',
+                title: 'MOLA - Topografía en Color',
+                format: 'png',
                 maxZoom: 8,
-                attribution: 'NASA MOLA'
-            },
-            thermal: {
-                name: 'MARS_THEMIS_IR_Day',
-                title: 'THEMIS - Infrarrojo Diurno',
-                format: 'jpg',
-                maxZoom: 7,
-                attribution: 'NASA THEMIS'
-            },
-            mineral: {
-                name: 'MARS_CRISM_Mineral_Map',
-                title: 'CRISM - Mapa Mineral',
-                format: 'jpg',
-                maxZoom: 6,
-                attribution: 'NASA CRISM'
+                attribution: 'NASA/JPL/MOLA',
+                baseUrl: 'https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/api/v1/map/named/opm-mars-basemap-v0-2/all',
+                useOpenPlanetaryMap: true
+            }
+        },
+
+        // Capas para la Luna (solo Mosaico Global)
+        MOON_LAYERS: {
+            visual: {
+                name: 'opm-moon-basemap-v0-1',
+                title: 'LRO WAC - Mosaico Global',
+                format: 'png',
+                maxZoom: 10,
+                attribution: 'NASA/LRO/LROC',
+                baseUrl: 'https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/api/v1/map/named/opm-moon-basemap-v0-1/all',
+                useOpenPlanetaryMap: true
             }
         },
         
-        // Capas disponibles para Venus
-        VENUS_LAYERS: {
-            radar: {
-                name: 'VENUS_Magellan_Radar',
-                title: 'Magellan - Radar',
-                format: 'jpg',
-                maxZoom: 7,
-                attribution: 'NASA Magellan'
-            },
-            elevation: {
-                name: 'VENUS_Magellan_Elevation',
-                title: 'Magellan - Elevación',
-                format: 'jpg',
-                maxZoom: 7,
-                attribution: 'NASA Magellan'
-            }
-        },
+        // URLs base para GIBS
+        WMTS_BASE: 'https://gibs.earthdata.nasa.gov/wmts/epsg4326/best',
+        WMS_BASE: 'https://gibs.earthdata.nasa.gov/wms/epsg4326/best',
         
-        // Capas disponibles para Saturno
-        SATURN_LAYERS: {
-            rings: {
-                name: 'SATURN_Cassini_Rings',
-                title: 'Cassini - Anillos',
-                format: 'jpg',
-                maxZoom: 6,
-                attribution: 'NASA Cassini'
-            },
-            atmosphere: {
-                name: 'SATURN_Cassini_Atmosphere',
-                title: 'Cassini - Atmósfera',
-                format: 'jpg',
-                maxZoom: 6,
-                attribution: 'NASA Cassini'
-            }
-        }
-    },
-    
-    // Configuración de fechas
-    DATE_CONFIG: {
-        // Fechas disponibles para diferentes capas
+        // Configuración de fechas para la Tierra
         EARTH_DATES: {
-            visual: {
-                start: '2020-01-01',
-                end: '2024-12-31',
-                default: '2024-10-01'
-            },
-            infrared: {
-                start: '2020-01-01',
-                end: '2024-12-31',
-                default: '2024-10-01'
-            },
-            radar: {
-                start: '2020-01-01',
-                end: '2024-12-31',
-                default: '2024-10-01'
-            },
-            earthatnight: {
-                start: '2020-01-01',
-                end: '2024-12-31',
-                default: '2024-10-01'
-            },
-            landsat: {
-                start: '2020-01-01',
-                end: '2024-12-31',
-                default: '2024-01-15'
-            }
+            start: '2000-02-24', // Fecha de inicio de MODIS Aqua
+            end: new Date().toISOString().split('T')[0],
+            default: (() => {
+                const today = new Date();
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+                return yesterday.toISOString().split('T')[0];
+            })()
         },
-        
+
+        // Configuración de fechas para Marte (usando fechas de la Tierra como fallback)
         MARS_DATES: {
-            visual: {
-                start: '2018-01-01',
-                end: '2024-12-31',
-                default: '2024-01-15'
-            },
-            thermal: {
-                start: '2018-01-01',
-                end: '2024-12-31',
-                default: '2024-01-15'
-            },
-            mineral: {
-                start: '2018-01-01',
-                end: '2024-12-31',
-                default: '2024-01-15'
-            }
+            start: '2000-02-24', // Fecha de inicio de MODIS Aqua
+            end: new Date().toISOString().split('T')[0], // Hoy
+            default: '2024-12-01' // Fecha fija válida para MODIS
         },
-        
-        VENUS_DATES: {
-            radar: {
-                start: '1990-01-01',
-                end: '1994-12-31',
-                default: '1992-06-15'
-            },
-            elevation: {
-                start: '1990-01-01',
-                end: '1994-12-31',
-                default: '1992-06-15'
-            }
-        },
-        
-        SATURN_DATES: {
-            rings: {
-                start: '2004-01-01',
-                end: '2017-12-31',
-                default: '2010-06-15'
-            },
-            atmosphere: {
-                start: '2004-01-01',
-                end: '2017-12-31',
-                default: '2010-06-15'
-            }
+
+        // Configuración de fechas para la Luna (usando fechas de la Tierra como fallback)
+        MOON_DATES: {
+            start: '2000-02-24', // Fecha de inicio de MODIS Aqua
+            end: new Date().toISOString().split('T')[0], // Hoy
+            default: '2024-12-01' // Fecha fija válida para MODIS
         }
     },
     
-    // Configuración de visualización
+    // Configuración de la API de NASA
+    API_CONFIG: {
+        // API key personal de NASA
+        API_KEY: 'NKsiusVGXnMbpMPd7XcRlofw6ifaLauqSTAhP5bu',
+        ENDPOINTS: {
+            APOD: '/planetary/apod',
+            EPIC: '/EPIC/api/natural/images',
+            EARTH_IMAGERY: '/planetary/earth/imagery',
+            MARS_PHOTOS: '/mars-photos/api/v1/rovers'
+        }
+    },
+    
+    // Configuración del visor
     VIEWER_CONFIG: {
-        // Configuración por defecto del mapa
         DEFAULT_ZOOM: 2,
+        MAX_ZOOM: 18,
         MIN_ZOOM: 1,
-        MAX_ZOOM: 9,
-        
-        // Configuración de controles
-        CONTROLS: {
-            zoom: true,
-            attribution: true,
-            scale: true,
-            coordinates: true
-        },
-        
-        // Configuración de capas
         LAYER_OPACITY: 0.8,
-        LAYER_TRANSITION: 300
+        TILE_SIZE: 256
     }
 };
 
-// Función para obtener capas por planeta
-export const getPlanetLayers = (planetName) => {
-    const layers = NASA_CONFIG.GIBS_CONFIG[`${planetName.toUpperCase()}_LAYERS`];
-    return layers || {};
+// Función para construir URL de tile GIBS (solo para la Tierra)
+export const buildGIBSUrl = (layerName, date, z, x, y, format = 'jpg') => {
+    return `${NASA_CONFIG.GIBS_CONFIG.WMTS_BASE}/${layerName}/default/${date}/250m/${z}/${y}/${x}.${format}`;
 };
 
-// Función para obtener fechas por planeta y capa
-export const getPlanetDates = (planetName, layerName) => {
-    const dates = NASA_CONFIG.DATE_CONFIG[`${planetName.toUpperCase()}_DATES`];
-    return dates?.[layerName] || null;
+// Función para construir URL de tiles planetarios
+export const buildPlanetaryTileUrl = (planet, layerType, z, x, y) => {
+    const planetLayers = NASA_CONFIG.GIBS_CONFIG[`${planet.toUpperCase()}_LAYERS`];
+    if (!planetLayers || !planetLayers[layerType]) {
+        console.error(`Capa no encontrada: ${planet} - ${layerType}`);
+        return null;
+    }
+    
+    const layerConfig = planetLayers[layerType];
+    
+    // Para planetas con OpenPlanetaryMap (Marte) - estructura simple que funciona
+    if (layerConfig.useOpenPlanetaryMap) {
+        // Usar proxy local para evitar CORS
+        const url = `/opm-mars/opmbuilder/api/v1/map/named/opm-mars-basemap-v0-2/all/${z}/${x}/${y}.${layerConfig.format}`;
+        
+        // Debug removido - funcionando correctamente
+        
+        return url;
+    }
+    
+    // Para planetas con datos de Trek (otros planetas) - usar estructura WMTS
+    if (layerConfig.baseUrl && layerConfig.baseUrl.includes('trek.nasa.gov')) {
+        let url;
+        
+        if (layerConfig.useSimpleStructure) {
+            // Estructura simplificada para debug - usar la estructura exacta de la documentación
+            // Según la documentación: /1.0.0/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.{format}
+            url = `/mars-trek/tiles/Mars/EQ/${layerConfig.name}/1.0.0/default/default028mm/default028mm/${y}/${x}.${layerConfig.format}`;
+        } else {
+            // Estructura WMTS completa: /1.0.0/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.{format}
+            const style = layerConfig.style || 'default';
+            const tileMatrixSet = layerConfig.tileMatrixSet || 'default028mm';
+            // Corregir el formato del TileMatrix - debe ser 3 dígitos con ceros a la izquierda
+            const tileMatrix = `default${String(z).padStart(3, '0')}mm`;
+            
+            url = `/mars-trek/tiles/Mars/EQ/${layerConfig.name}/1.0.0/${style}/${tileMatrixSet}/${tileMatrix}/${y}/${x}.${layerConfig.format}`;
+        }
+        
+        // Debug removido - funcionando correctamente
+        
+        return url;
+    }
+    
+        // Para la Luna con OpenPlanetaryMap - usar estructura simple que funciona
+        if (layerConfig.useOpenPlanetaryMap && planet.toLowerCase() === 'moon') {
+            // Usar proxy local para evitar CORS - URL directa como en nasaproyect
+            const url = `/opm-moon/opmbuilder/api/v1/map/named/opm-moon-basemap-v0-1/all/${z}/${x}/${y}.${layerConfig.format}`;
+            
+            return url;
+        }
+        
+        // Para otros planetas con estructura diferente - usar proxy local
+        if (layerConfig.baseUrl && layerConfig.baseUrl.includes('solarsystem.nasa.gov')) {
+            return `/nasa-solar/system/resources/detail_files/${layerConfig.name}_${z}_${x}_${y}.${layerConfig.format}`;
+        }
+    
+    // Fallback a GIBS si no hay baseUrl específico
+    return buildGIBSUrl(layerConfig.name, 'default', z, x, y, layerConfig.format);
 };
 
-// Función para construir URL de tile
-export const buildTileUrl = (planetName, layerName, date, z, x, y) => {
-    const layer = getPlanetLayers(planetName)[layerName];
-    if (!layer) return null;
-    
-    const baseUrl = NASA_CONFIG.ENDPOINTS.GIBS;
-    const format = layer.format;
-    
-    // Usar proxy local para evitar problemas de CORS
-    const proxyUrl = '/api/nasa';
-    
-    // Usar la misma configuración que el backend (epsg4326)
-    return `${proxyUrl}/wmts/epsg4326/best/${layer.name}/default/${date}/250m/${z}/${y}/${x}.${format}`;
+// Función para obtener capas de la Tierra
+export const getEarthLayers = () => {
+    return NASA_CONFIG.GIBS_CONFIG.EARTH_LAYERS;
+};
+
+// Función para obtener configuración de fechas de la Tierra
+export const getEarthDates = () => {
+    return NASA_CONFIG.GIBS_CONFIG.EARTH_DATES;
+};
+
+// Función para obtener capas de Marte
+export const getMarsLayers = () => {
+    return NASA_CONFIG.GIBS_CONFIG.MARS_LAYERS;
+};
+
+// Función para obtener configuración de fechas de Marte
+export const getMarsDates = () => {
+    return NASA_CONFIG.GIBS_CONFIG.MARS_DATES;
+};
+
+// Función para obtener capas de la Luna
+export const getMoonLayers = () => {
+    return NASA_CONFIG.GIBS_CONFIG.MOON_LAYERS;
+};
+
+// Función para obtener configuración de fechas de la Luna
+export const getMoonDates = () => {
+    return NASA_CONFIG.GIBS_CONFIG.MOON_DATES;
+};
+
+// Función para construir URL de API de NASA
+export const buildNASAUrl = (endpoint, params = {}) => {
+    const baseUrl = NASA_CONFIG.ENDPOINTS.BASE;
+    const apiKey = NASA_CONFIG.API_CONFIG.API_KEY;
+    const queryParams = new URLSearchParams({ ...params, api_key: apiKey });
+    return `${baseUrl}${endpoint}?${queryParams}`;
 };
 
 export default NASA_CONFIG;

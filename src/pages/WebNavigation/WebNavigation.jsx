@@ -76,33 +76,27 @@ function ModelLoader({ modelPath, planetName, planetInfo }) {
 
 // Componente para el modelo del planeta
 function Earth({ modelPath = '/models/Earth_1_12756.glb', planetName = 'Tierra' }) {
-    // Colores y propiedades para cada planeta
-    const planetData = {
-        'Tierra': { 
-            color: '#4A90E2', 
-            roughness: 0.4, 
-            metalness: 0.0,
-            emissive: { r: 0.05, g: 0.05, b: 0.05 }
-        },
-        'Marte': { 
-            color: '#CD5C5C', 
-            roughness: 0.8, 
-            metalness: 0.1,
-            emissive: { r: 0.1, g: 0.05, b: 0.05 }
-        },
-        'Venus': { 
-            color: '#FFD700', 
-            roughness: 0.2, 
-            metalness: 0.0,
-            emissive: { r: 0.15, g: 0.15, b: 0.05 }
-        },
-        'Saturno': { 
-            color: '#FAD5A5', 
-            roughness: 0.6, 
-            metalness: 0.0,
-            emissive: { r: 0.1, g: 0.1, b: 0.05 }
-        }
-    };
+        // Colores y propiedades para cada planeta
+        const planetData = {
+            'Tierra': { 
+                color: '#4A90E2', 
+                roughness: 0.4, 
+                metalness: 0.0,
+                emissive: { r: 0.05, g: 0.05, b: 0.05 }
+            },
+            'Marte': { 
+                color: '#CD5C5C', 
+                roughness: 0.8, 
+                metalness: 0.1,
+                emissive: { r: 0.1, g: 0.05, b: 0.05 }
+            },
+            'Luna': { 
+                color: '#C0C0C0', 
+                roughness: 0.9, 
+                metalness: 0.0,
+                emissive: { r: 0.02, g: 0.02, b: 0.02 }
+            }
+        };
     
     const planetInfo = planetData[planetName] || { 
         color: '#666666', 
@@ -138,12 +132,10 @@ function Earth({ modelPath = '/models/Earth_1_12756.glb', planetName = 'Tierra' 
         );
     }
     
-    // Para planetas sin modelo o con error, usar esfera mejorada
-    if (planetName === 'Saturno') {
-        return (
-            <group position={[0, 0, 0]}>
-                {/* Planeta principal */}
-                <mesh>
+        // Para planetas sin modelo o con error, usar esfera mejorada
+        if (planetName === 'Luna') {
+            return (
+                <mesh position={[0, 0, 0]}>
                     <sphereGeometry args={[1, 64, 64]} />
                     <meshStandardMaterial 
                         color={planetInfo.color}
@@ -152,35 +144,8 @@ function Earth({ modelPath = '/models/Earth_1_12756.glb', planetName = 'Tierra' 
                         emissive={planetInfo.emissive}
                     />
                 </mesh>
-                
-                {/* Anillos de Saturno */}
-                <mesh rotation={[Math.PI / 2, 0, 0]}>
-                    <ringGeometry args={[1.2, 2.5, 64]} />
-                    <meshStandardMaterial 
-                        color="#D4AF37"
-                        roughness={0.3}
-                        metalness={0.1}
-                        transparent={true}
-                        opacity={0.6}
-                        side={2} // DoubleSide
-                    />
-                </mesh>
-                
-                {/* Anillo interior */}
-                <mesh rotation={[Math.PI / 2, 0, 0]}>
-                    <ringGeometry args={[1.3, 1.8, 64]} />
-                    <meshStandardMaterial 
-                        color="#B8860B"
-                        roughness={0.4}
-                        metalness={0.2}
-                        transparent={true}
-                        opacity={0.4}
-                        side={2}
-                    />
-                </mesh>
-            </group>
-        )
-    }
+            )
+        }
     
     return (
         <mesh position={[0, 0, 0]}>
@@ -203,8 +168,7 @@ const WebNavigation = () => {
         const modelPaths = [
             '/models/Earth_1_12756.glb',
             '/models/Mars.glb',
-            '/models/Venus.glb',
-            '/models/Saturn.glb'
+            '/models/Moon.glb'
         ];
         
         modelPaths.forEach(path => {
@@ -252,26 +216,15 @@ const WebNavigation = () => {
             model: '/models/Mars.glb'
         },
         {
-            name: 'Venus',
-            description: 'El planeta más brillante en nuestro cielo nocturno. A pesar de su belleza, Venus es un mundo infernal con temperaturas extremas y una atmósfera tóxica.',
+            name: 'Luna',
+            description: 'Nuestro satélite natural, la Luna, ha sido testigo de la evolución de la vida en la Tierra. Su superficie craterizada cuenta la historia de los impactos cósmicos y su influencia gravitacional estabiliza el clima terrestre.',
             details: {
-                diameter: '12,104 km',
-                distance: '108.2 millones km',
-                period: '225 días',
+                diameter: '3,474 km',
+                distance: '384,400 km',
+                period: '27.3 días',
                 satellites: '0'
             },
-            model: '/models/Venus.glb'
-        },
-        {
-            name: 'Saturno',
-            description: 'El planeta de los anillos, uno de los más reconocibles del sistema solar. Sus impresionantes anillos de hielo y roca lo convierten en una maravilla visual única.',
-            details: {
-                diameter: '116,460 km',
-                distance: '1,429 millones km',
-                period: '10,759 días',
-                satellites: '82+'
-            },
-            model: '/models/Saturn.glb'
+            model: '/models/Moon.glb'
         }
     ];
 
@@ -331,15 +284,18 @@ const WebNavigation = () => {
                             <button 
                                 className="explore-button"
                                 onClick={() => {
-                                    const planetRoutes = {
-                                        'Tierra': '/earth-viewer',
-                                        'Marte': '/mars-viewer',
-                                        'Venus': '/venus-viewer',
-                                        'Saturno': '/saturn-viewer'
-                                    };
-                                    const route = planetRoutes[planet.name];
-                                    if (route) {
-                                        window.location.href = route;
+                                    if (planet.name === 'Tierra') {
+                                        // Navegar al visor de la Tierra
+                                        window.location.href = '/earth-viewer';
+                                    } else if (planet.name === 'Marte') {
+                                        // Navegar al visor de Marte
+                                        window.location.href = '/mars-viewer';
+                                    } else if (planet.name === 'Luna') {
+                                        // Navegar al visor de la Luna
+                                        window.location.href = '/moon-viewer';
+                                    } else {
+                                        console.log(`Explorando detalles de ${planet.name}`);
+                                        // TODO: Implementar visores para otros planetas
                                     }
                                 }}
                             >

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Renderer, Camera, Geometry, Program, Mesh } from 'ogl';
+import React from 'react';
 
 import './Particles.css';
 
