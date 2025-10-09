@@ -80,11 +80,13 @@ const PlanetChatbot = ({ currentPlanet, isVisible, onClose }) => {
     const generatePlanetResponse = async (userMessage, planet) => {
         const prompt = generateContextualPrompt(userMessage, planet);
         
-        const response = await fetch(GEMINI_CONFIG.ENDPOINTS.CHAT, {
+        // Construir la URL con la API key como parámetro
+        const url = `${GEMINI_CONFIG.ENDPOINTS.CHAT}?key=${GEMINI_CONFIG.API_KEY}`;
+        
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'X-goog-api-key': GEMINI_CONFIG.API_KEY,
+                'Content-Type': 'application/json',  // ✅ Corregido: "json" no "jsocn"
             },
             body: JSON.stringify({
                 contents: [{
@@ -98,12 +100,23 @@ const PlanetChatbot = ({ currentPlanet, isVisible, onClose }) => {
                 }
             })
         });
-
+    
         if (!response.ok) {
-            throw new Error(`API Error: ${response.status}`);
+            const errorData = await response.json().catch(() => ({}));
+            console.error('Gemini API Error:', {
+                status: response.status,
+                statusText: response.statusText,
+                error: errorData
+            });
+            throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
         }
-
+    
         const data = await response.json();
+        
+        if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+            throw new Error('Invalid response format from Gemini API');
+        }
+        
         return data.candidates[0].content.parts[0].text;
     };
 

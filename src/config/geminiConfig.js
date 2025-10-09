@@ -1,6 +1,6 @@
-// Configuración de Gemini AI para el chatbot de planetas
+
 export const GEMINI_CONFIG = {
-    API_KEY: import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyD-kaqLYzHV52mmbEoIXlTX7rQ4de09gLI',
+    API_KEY: import.meta.env.VITE_GEMINI_API_KEY,
     MODEL: 'gemini-2.0-flash',
     ENDPOINTS: {
         CHAT: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'

@@ -68,7 +68,6 @@ export const NASA_CONFIG = {
         },
         
         // URLs base para GIBS
-        WMTS_BASE: 'https://gibs.earthdata.nasa.gov/wmts/epsg4326/best',
         WMS_BASE: 'https://gibs.earthdata.nasa.gov/wms/epsg4326/best',
         
         // Configuración de fechas para la Tierra
@@ -100,8 +99,8 @@ export const NASA_CONFIG = {
     
     // Configuración de la API de NASA
     API_CONFIG: {
-        // API key personal de NASA
-        API_KEY: 'NKsiusVGXnMbpMPd7XcRlofw6ifaLauqSTAhP5bu',
+        // API key personal de NASA - desde variables de entorno
+        API_KEY: import.meta.env.VITE_NASA_API_KEY,
         ENDPOINTS: {
             APOD: '/planetary/apod',
             EPIC: '/EPIC/api/natural/images',

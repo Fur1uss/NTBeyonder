@@ -107,19 +107,58 @@ function Earth({ modelPath = '/models/Earth_1_12756.glb', planetName = 'Tierra' 
         emissive: { r: 0.05, g: 0.05, b: 0.05 }
     };
     
-    // Usar esferas como fallback debido a problemas con archivos GLB grandes en Vercel
-    console.log(`Usando esfera para ${planetName} (fallback por tamaño de archivo GLB)`);
-    return (
-        <mesh position={[0, 0, 0]}>
-            <sphereGeometry args={[1, 64, 64]} />
-            <meshStandardMaterial 
-                color={planetInfo.color}
-                roughness={planetInfo.roughness}
-                metalness={planetInfo.metalness}
-                emissive={planetInfo.emissive}
-            />
-        </mesh>
-    );
+    // Detectar si estamos en desarrollo local
+    const isLocalDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    
+    if (isLocalDevelopment) {
+        // En desarrollo local, usar modelos 3D reales
+        console.log(`Cargando modelo 3D real para ${planetName}`);
+        return (
+            <ErrorBoundary fallback={
+                <mesh position={[0, 0, 0]}>
+                    <sphereGeometry args={[1, 64, 64]} />
+                    <meshStandardMaterial 
+                        color={planetInfo.color}
+                        roughness={planetInfo.roughness}
+                        metalness={planetInfo.metalness}
+                        emissive={planetInfo.emissive}
+                    />
+                </mesh>
+            }>
+                <Suspense fallback={
+                    <mesh position={[0, 0, 0]}>
+                        <sphereGeometry args={[1, 32, 32]} />
+                        <meshStandardMaterial 
+                            color={planetInfo.color}
+                            roughness={planetInfo.roughness}
+                            metalness={planetInfo.metalness}
+                            emissive={planetInfo.emissive}
+                        />
+                    </mesh>
+                }>
+                    <ModelLoader 
+                        modelPath={modelPath} 
+                        planetName={planetName} 
+                        planetInfo={planetInfo}
+                    />
+                </Suspense>
+            </ErrorBoundary>
+        );
+    } else {
+        // En producción, usar esferas como fallback
+        console.log(`Usando esfera para ${planetName} (fallback por tamaño de archivo GLB)`);
+        return (
+            <mesh position={[0, 0, 0]}>
+                <sphereGeometry args={[1, 64, 64]} />
+                <meshStandardMaterial 
+                    color={planetInfo.color}
+                    roughness={planetInfo.roughness}
+                    metalness={planetInfo.metalness}
+                    emissive={planetInfo.emissive}
+                />
+            </mesh>
+        );
+    }
 }
 
 const WebNavigation = () => {
