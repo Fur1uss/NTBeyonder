@@ -31,7 +31,7 @@ NASA's space missions capture images with billions or even trillions of pixels -
 
 ### 🤖 **AI-Powered Exploration**
 - **Intelligent Chatbot**: Context-aware AI assistant for each planet
-- **Gemini 2.0 Integration**: Advanced AI for answering space-related questions
+- **Azure OpenAI Integration**: Advanced AI for answering space-related questions
 - **Interactive Learning**: Personalized exploration guidance
 
 ### 🎨 **Immersive User Experience**
@@ -60,7 +60,7 @@ NASA's space missions capture images with billions or even trillions of pixels -
 ### **Data & APIs**
 - **NASA GIBS API** - Global Imagery Browse Services
 - **NASA Open APIs** - Planetary data and imagery
-- **Google Gemini 2.0** - AI-powered assistance
+- **Azure OpenAI** - AI-powered assistance
 - **OpenPlanetaryMap** - Planetary mapping services
 
 ### **Development Tools**
@@ -84,7 +84,7 @@ src/
 │   └── WebNavigation/  # Planetary exploration hub
 ├── config/             # Configuration files
 │   ├── nasaConfig.js   # NASA API configuration
-│   └── geminiConfig.js # AI service configuration
+│   └── azureOpenAIConfig.js # AI service configuration
 └── services/           # API service layers
 ```
 
@@ -93,7 +93,7 @@ src/
 2. **API Requests** → NASA GIBS/OpenPlanetaryMap Services
 3. **Image Processing** → Tile-based streaming system
 4. **3D Rendering** → Three.js WebGL pipeline
-5. **AI Integration** → Gemini 2.0 API responses
+5. **AI Integration** → Azure OpenAI API responses
 
 ## 🚀 Getting Started
 
@@ -121,7 +121,9 @@ src/
    Create a `.env` file in the root directory:
    ```env
    VITE_NASA_API_KEY=your_nasa_api_key_here
-   VITE_GEMINI_API_KEY=your_gemini_api_key_here
+   VITE_AZURE_OPENAI_API_KEY=your_azure_openai_api_key_here
+   VITE_AZURE_OPENAI_ENDPOINT=your_azure_openai_endpoint_here
+   VITE_AZURE_OPENAI_DEPLOYMENT=your_deployment_name_here
    ```
 
 4. **Start development server**
@@ -206,7 +208,9 @@ vercel --prod
 ### **Environment Variables**
 Configure the following in your deployment platform:
 - `VITE_NASA_API_KEY`: NASA API key for data access
-- `VITE_GEMINI_API_KEY`: Google Gemini API key for AI features
+- `VITE_AZURE_OPENAI_API_KEY`: Azure OpenAI API key for AI features
+- `VITE_AZURE_OPENAI_ENDPOINT`: Azure OpenAI service endpoint
+- `VITE_AZURE_OPENAI_DEPLOYMENT`: Azure OpenAI deployment name
 
 ## 🤝 Contributing
 
@@ -226,7 +230,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - **NASA** for providing open access to space data and imagery
-- **Google** for Gemini AI capabilities
+- **Microsoft Azure** for Azure OpenAI capabilities
 - **Three.js Community** for 3D web graphics tools
 - **React Team** for the amazing framework
 - **NASA Space Apps Challenge** for inspiring this project

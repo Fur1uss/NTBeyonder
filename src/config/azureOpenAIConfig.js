@@ -1,10 +1,9 @@
 
-export const GEMINI_CONFIG = {
-    API_KEY: import.meta.env.VITE_GEMINI_API_KEY,
-    MODEL: 'gemini-2.0-flash',
-    ENDPOINTS: {
-        CHAT: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
-    }
+export const AZURE_OPENAI_CONFIG = {
+    API_KEY: import.meta.env.VITE_AZURE_OPENAI_API_KEY,
+    ENDPOINT: import.meta.env.VITE_AZURE_OPENAI_ENDPOINT,
+    DEPLOYMENT: import.meta.env.VITE_AZURE_OPENAI_DEPLOYMENT,
+    API_VERSION: '2024-02-15-preview'
 };
 
 // Personalidades únicas de cada planeta
@@ -94,4 +93,4 @@ PREGUNTA DEL USUARIO: "${userMessage}"
 RESPUESTA:`;
 };
 
-export default GEMINI_CONFIG;
+export default AZURE_OPENAI_CONFIG;

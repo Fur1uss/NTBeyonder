@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GEMINI_CONFIG, getPlanetPersonality, generateContextualPrompt } from '../../config/geminiConfig';
+import { AZURE_OPENAI_CONFIG, getPlanetPersonality, generateContextualPrompt } from '../../config/azureOpenAIConfig';
 import './PlanetChatbot.css';
 
 const PlanetChatbot = ({ currentPlanet, isVisible, onClose }) => {
@@ -80,30 +80,34 @@ const PlanetChatbot = ({ currentPlanet, isVisible, onClose }) => {
     const generatePlanetResponse = async (userMessage, planet) => {
         const prompt = generateContextualPrompt(userMessage, planet);
         
-        // Construir la URL con la API key como parámetro
-        const url = `${GEMINI_CONFIG.ENDPOINTS.CHAT}?key=${GEMINI_CONFIG.API_KEY}`;
+        // Construir la URL de Azure OpenAI
+        const url = `${AZURE_OPENAI_CONFIG.ENDPOINT}/openai/deployments/${AZURE_OPENAI_CONFIG.DEPLOYMENT}/chat/completions?api-version=${AZURE_OPENAI_CONFIG.API_VERSION}`;
         
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',  // ✅ Corregido: "json" no "jsocn"
+                'Content-Type': 'application/json',
+                'api-key': AZURE_OPENAI_CONFIG.API_KEY
             },
             body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: prompt
-                    }]
-                }],
-                generationConfig: {
-                    temperature: 0.8,
-                    maxOutputTokens: 150,
-                }
+                messages: [
+                    {
+                        role: 'system',
+                        content: 'Eres un asistente útil que responde como un planeta del sistema solar.'
+                    },
+                    {
+                        role: 'user',
+                        content: prompt
+                    }
+                ],
+                max_tokens: 150,
+                temperature: 0.8
             })
         });
     
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            console.error('Gemini API Error:', {
+            console.error('Azure OpenAI API Error:', {
                 status: response.status,
                 statusText: response.statusText,
                 error: errorData
@@ -113,11 +117,11 @@ const PlanetChatbot = ({ currentPlanet, isVisible, onClose }) => {
     
         const data = await response.json();
         
-        if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-            throw new Error('Invalid response format from Gemini API');
+        if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+            throw new Error('Invalid response format from Azure OpenAI API');
         }
         
-        return data.candidates[0].content.parts[0].text;
+        return data.choices[0].message.content;
     };
 
     const handleKeyPress = (e) => {
@@ -162,7 +166,7 @@ const PlanetChatbot = ({ currentPlanet, isVisible, onClose }) => {
 
                 {/* Messages Container */}
                 <div className="planet-chatbot-messages">
-                    {messages.map((msg, index) => (
+                    {messages.map((msg) => (
                         <div key={msg.id} className={`planet-chatbot-message ${msg.type}`}>
                             {msg.type === 'bot' && msg.isFirst && (
                                 <div className="planet-chatbot-avatar-small">
